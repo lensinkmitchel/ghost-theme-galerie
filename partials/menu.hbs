@@ -1,0 +1,292 @@
+{{!--
+  This template renders the collapsible main menu.
+--}}
+
+<div
+  x-data="menu()"
+  class="g-drawer in-menu"
+  :class="{
+    'open': isMenuOpen(),
+    'visible': isMenuAccessible(),
+    'invisible': !isMenuAccessible() 
+  }"
+  @open-menu.window="openMenu()"
+  @keyup.escape.window="closeMenu()"
+  @keydown.window="moveFocus()"
+>
+  <div class="g-drawer__backdrop" @click="closeMenu()"></div>
+  <div class="g-drawer__content">
+    <div class="g-drawer__header js-menu-item-animate">
+      {{> logo logo_class="in-drawer"}}
+      <button
+        class="g-header-button no-appearance focusable content-centered"
+        aria-label="{{t "Close menu"}}"
+        x-ref="close_menu"
+        @click="closeMenu()"
+      >
+        <span
+          class="g-header-button__icon icon-cancel"
+          aria-hidden="true"
+        ></span>
+        <span class="g-header-button__label">{{t "Close"}}</span>
+      </button>
+    </div>
+    <div class="g-drawer__body">
+      <div class="g-menu-navigation">
+        <nav
+          aria-label="{{t "Main navigation in menu"}}"
+          class="js-menu-item-animate"
+        >
+          <ul>
+            {{navigation}}
+          </ul>
+        </nav>
+        {{^if @member}}
+          {{#if @site.members_enabled}}
+            <nav
+              aria-label="{{t "Authentication navigation in menu"}}"
+              class="js-menu-item-animate"
+            >
+              <ul>
+                <li>
+                  <a href="{{#if @custom.portal_for_membership_experience}}#/portal/signup{{else}}{{@site.url}}/subscribe{{/if}}">
+                  {{t "Subscribe"}}
+                </a>
+                </li>
+                <li>
+                  <a href="{{#if @custom.portal_for_membership_experience}}#/portal/signin{{else}}{{@site.url}}/signin{{/if}}">
+                    {{t "Sign In"}}
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          {{/if}}
+        {{/if}}
+        <nav
+          aria-label="{{t "Secondary navigation in menu"}}"
+          class="js-menu-item-animate"
+        >
+          <ul>
+            {{navigation type="secondary"}}
+          </ul>
+        </nav>
+      </div>
+      <div class="g-menu-account js-menu-item-animate">
+        {{#if @member}}
+          <div class="g-menu-account__container">
+            <div class="g-menu-account__content">
+              <a
+                href="{{#if @custom.portal_for_membership_experience}}#/portal/account{{else}}{{@site.url}}/account{{/if}}"
+                class="g-menu-account__avatar"
+              >
+                <div class="g-menu-account__avatar__fallback">
+                  {{> circles-shape}}
+                </div>
+                {{#if @member.avatar_image}}
+                  <img
+                    data-src="{{img_url @member.avatar_image size="xs"}}"
+                    alt=""
+                    width="50"
+                    height="50"
+                    class="g-menu-account__image lazy"
+                  >
+                {{/if}}
+              </a>
+              <div class="g-menu-account__navigation">
+                <nav aria-label="{{t "Account navigation in menu"}}">
+                  <ul>
+                    <li>
+                      <a href="{{#if @custom.portal_for_membership_experience}}#/portal/account{{else}}{{@site.url}}/account{{/if}}">
+                        {{t "My Account"}}
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#signout" data-members-signout>{{t "Sign Out"}}</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        {{/if}}
+        <div class="g-theme-toggle {{#if @member}}is-member{{/if}}">
+          <button
+            class="g-theme-toggle__button light active no-appearance focusable"
+            :class="{active: savedThemeMode === 'light'}"
+            @click="setThemeMode('light')"
+          >
+            <span
+              class="icon-sun-light g-theme-toggle__button__icon"
+              aria-hidden="true"
+            ></span>
+            <span class="g-theme-toggle__button__label">
+              {{t "Light"}}
+            </span>
+          </button>
+          <button
+            class="g-theme-toggle__button dark no-appearance focusable"
+            :class="{active: savedThemeMode === 'dark'}"
+            @click="setThemeMode('dark')"
+          >
+            <span
+              class="icon-half-moon g-theme-toggle__button__icon"
+              aria-hidden="true"
+            ></span>
+            <span class="g-theme-toggle__button__label">
+              {{t "Dark"}}
+            </span>
+          </button>
+          <button
+            class="g-theme-toggle__button system no-appearance focusable"
+            :class="{active: savedThemeMode === 'system'}"
+            @click="setThemeMode('system')"
+          >
+            <span
+              class="icon-modern-tv g-theme-toggle__button__icon"
+              aria-hidden="true"
+            ></span>
+            <span class="g-theme-toggle__button__label">
+              {{t "System"}}
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="g-drawer__footer js-menu-item-animate">
+      <nav
+        class="g-drawer__social"
+        aria-label="{{t "Social links in menu"}}"
+      >
+        {{> social-links}}
+      </nav>
+      <p class="g-footer-copyright in-menu">
+        {{#if @custom.footnote_text_override}}
+          {{@custom.footnote_text_override}}
+        {{else}}
+          <span>{{@site.title}} &copy; {{date format="YYYY"}}</span>
+          <span>
+            {{{t "Proudly published with {ghostlink}" ghostlink="<a href=\"https://ghost.org\">Ghost</a>"}}}
+          </span>
+        {{/if}}
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function menu() {
+    return {
+      showMenu: false,
+      accessible: false,
+      firstFocusableElement: null,
+      lastFocusableElement: null,
+      bodyElement: null,
+      savedThemeMode: 'system',
+      init() {
+        this.initThemeMode()
+        const focusableElements = this.$el.querySelectorAll('a[href], button')
+        this.bodyElement = document.querySelector('body')
+        this.firstFocusableElement = focusableElements[0]
+        this.lastFocusableElement = focusableElements[focusableElements.length - 1]
+      },
+      openMenu() {
+        const self = this
+        self.$dispatch('drawer-opened', { drawer: 'menu' })
+        this.showMenu = true
+        this.accessible = true
+        this.bodyElement.classList.add('no-scroll-y')
+
+        setTimeout(function() {
+          self.$refs.close_menu.focus()
+        }, 200)
+      },
+      closeMenu() {
+        this.showMenu = false
+        this.bodyElement.classList.remove('no-scroll-y')
+
+        setTimeout(function() {
+          this.accessible = false
+        }, 400)
+      },
+      isMenuOpen() {
+        return this.showMenu == true
+      },
+      isMenuAccessible() {
+        return this.accessible == true
+      },
+      moveFocus() {
+        if (
+          this.$event.target === this.lastFocusableElement &&
+          this.$event.key === 'Tab' &&
+          !this.$event.shiftKey
+        ) {
+          this.$event.preventDefault()
+          this.firstFocusableElement.focus()
+        } else if (
+          this.$event.target === this.firstFocusableElement &&
+          this.$event.key === 'Tab' &&
+          this.$event.shiftKey
+        ) {
+          this.$event.preventDefault()
+          this.lastFocusableElement.focus()
+        }
+      },
+      initThemeMode() {
+        this.savedThemeMode = this.getThemeMode()
+        this.setThemeMode(this.savedThemeMode)
+
+        if (window.matchMedia) {
+          window.matchMedia('(prefers-color-scheme: dark)')
+            .addEventListener('change', this.updateSystemTheme.bind(this))
+        }
+      },
+      updateSystemTheme() {
+        if (this.savedThemeMode !== 'system') {
+          return
+        }
+
+        if (this.isSystemDark()) {
+          this.setThemeMode('dark', false)
+        } else {
+          this.setThemeMode('light', false)
+        }
+      },
+      isSystemDark() {
+        return window.matchMedia
+          && window.matchMedia('(prefers-color-scheme: dark)').matches
+      },
+      setThemeMode(mode, saveTheme = true) {
+        const html = document.querySelector('html')
+        html.setAttribute('theme-mode', mode)
+
+        if (saveTheme) {
+          this.savedThemeMode = mode
+
+          if (mode === 'system') {
+            this.updateSystemTheme()
+          }
+
+          localStorage.setItem('galerie-theme-mode', mode)
+        }
+
+        this.rerenderGhostIframes()
+      },
+      getThemeMode() {
+        const localValue = localStorage.getItem('galerie-theme-mode')
+
+        if (!localValue) {
+          return 'system'
+        }
+
+        return localValue
+      },
+      rerenderGhostIframes() {
+        const comments = document.querySelector('.js-comments > div > iframe')
+
+        if (comments) {
+          comments.contentDocument.location.reload(true)
+        }
+      }
+    }
+  }
+</script>

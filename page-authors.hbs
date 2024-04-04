@@ -1,0 +1,89 @@
+{{!--
+  This template is used for the authors page.
+--}}
+
+{{!-- This block preloads specific assets for the authors page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/authors.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the authors page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/authors.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="g-main-container">
+  <main role="main">
+    {{!-- Everything inside the #post tags pulls data from the page --}}
+    {{#post}}
+      {{!-- Main Hero component --}}
+      <section
+        class="g-generic-hero {{#if feature_image}}with-image{{/if}}"
+      >
+        {{#if feature_image}}
+          {{> hero-image
+            hero_image=feature_image
+            alt_image=feature_image_alt
+          }}
+        {{/if}}
+        <div class="g-generic-hero__container">
+          <div class="g-wrapper">
+            <div
+              class="g-generic-hero__content {{#if feature_image}}with-image{{/if}}"
+            >
+              <h1 class="g-generic-hero__title">{{title}}</h1>
+              {{#if custom_excerpt}}
+                <p class="g-generic-hero__description">{{custom_excerpt}}</p>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </section>
+    {{/post}}
+    {{!-- List of authors --}}
+    {{#get "authors" limit="all" order="name asc"}}
+      <section class="g-authors-grid">
+        <div class="g-wrapper">
+          <div class="g-authors-grid__container">
+            {{#foreach authors}}
+              <div class="g-authors-grid__item {{#if @last}}last{{/if}}">
+                <a
+                  href="{{url}}"
+                  class="g-author-card {{^if profile_image}}no-image{{/if}}"
+                >
+                  {{#if profile_image}}
+                    <div class="g-author-card__image">
+                      <img
+                        data-src="{{img_url profile_image size='m'}}"
+                        alt=""
+                        width="260"
+                        height="320"
+                        class="lazy"
+                      >
+                    </div>
+                  {{/if}}
+                  <h2
+                    class="g-author-card__name {{^if profile_image}}no-image{{/if}}"
+                  >
+                    {{name}}
+                  </h2>
+                </a>
+              </div>
+            {{/foreach}}
+          </div>
+        </div>
+      </section>
+    {{/get}}
+    {{!-- Newsletter form --}}
+    {{> newsletter-form}}
+  </main>
+</div>

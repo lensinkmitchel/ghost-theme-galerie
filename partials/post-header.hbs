@@ -1,0 +1,129 @@
+{{!--
+  This template renders the header for each post.
+--}}
+
+<header
+  clasS="g-post-header {{^if feature_image}}no-image{{/if}}"
+>
+  <div class="g-wrapper">
+    {{#is "post"}}
+      {{#if primary_tag}}
+        <a href="{{primary_tag.url}}" class="g-post-header__primary-tag">
+          {{primary_tag.name}}
+        </a>
+      {{/if}}
+    {{/is}}
+    <div
+      class="g-post-header__container {{#is "page"}}in-page{{/is}}"
+    >
+      <div
+        class="g-post-header__main {{#is "post"}}in-post {{#if custom_excerpt}}has-excerpt{{/if}}{{/is}}"
+      >
+        <h1 class="g-post-header__title">{{title}}</h1>
+        {{#if custom_excerpt}}
+          <p class="g-post-header__excerpt">{{custom_excerpt}}</p>
+        {{/if}}
+      </div>
+      {{#is "post"}}
+        <div class="g-post-header__metas">
+          {{#if authors}}
+            {{#has author="count:>1"}}
+              <p class="g-post-header__authors">
+                {{t "By"}} 
+                {{#foreach authors}}
+                  <a href="{{url}}">{{name}}</a><span class="{{#if @last}}hide{{/if}}">,</span>
+                {{/foreach}}
+              </p>
+            {{else}}
+              <a href="{{primary_author.url}}" class="g-post-header__author">
+                <span class="g-post-header__author__avatar">
+                  {{#if primary_author.profile_image}}
+                    <span>
+                      <img
+                        src="{{img_url primary_author.profile_image size='xxs'}}"
+                        width="32"
+                        height="32"
+                        alt=""
+                      >
+                    </span>
+                  {{else}}
+                    <span>
+                      <span>
+                        {{> circles-shape}}
+                      </span>
+                    </span>
+                  {{/if}}
+                </span>
+                <span class="g-post-header__author__name">
+                  {{primary_author.name}}
+                </span>
+              </a>
+            {{/has}}
+          {{/if}}
+          <div
+            class="g-post-header__time {{#has tag="count:>1"}}spacing{{/has}} {{#has author="count:>1"}}multiple-authors{{/has}}"
+          >
+            <div class="g-post-header__time__item">
+              <div class="g-post-header__time__item__icon">
+                <div>
+                  <span class="icon-calendar" aria-hidden="true"></span>
+                </div>
+              </div>
+              <span class="g-post-header__time__item__label">
+                {{date published_at}}
+              </span>
+            </div>
+            {{#if reading_time}}
+              <div class="g-post-header__time__item">
+                <div class="g-post-header__time__item__icon">
+                  <div>
+                    <span
+                      class="icon-clock-outline"
+                      aria-hidden="true"
+                    ></span>
+                  </div>
+                </div>
+                <span class="g-post-header__time__item__label">
+                  {{reading_time
+                    minute=(t "1 min read")
+                    minutes=(t "% min read")
+                  }}
+                </span>
+              </div>
+            {{/if}}
+          </div>
+          {{#has tag="count:>1"}}
+            <div class="g-post-header__tags">
+              {{tags from="2" separator=",&nbsp;"}}
+            </div>
+          {{/has}}
+        </div>
+      {{/is}}
+    </div>
+  </div>
+</header>
+{{#if feature_image}}
+  <div class="g-post-header__image">
+    <figure>
+      <img
+        data-src="{{img_url feature_image size='l'}}"
+        data-srcset="
+          {{img_url feature_image size='m'}} 500w,
+          {{img_url feature_image size='l'}} 1000w,
+          {{img_url feature_image size='xl'}} 2000w
+        "
+        sizes="
+          (min-width: 90rem) 70vw,
+          100vw
+        "
+        alt="{{feature_image_alt}}"
+        class="lazy"
+        width="1360"
+        height="820"
+      >
+      {{#if feature_image_caption}}
+        <figcaption>{{feature_image_caption}}</figcaption>
+      {{/if}}
+    </figure>
+  </div>
+{{/if}}

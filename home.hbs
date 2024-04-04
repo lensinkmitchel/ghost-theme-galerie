@@ -1,0 +1,131 @@
+{{!--This template is used for the custom home page--}}
+
+{{!-- This block preloads specific assets for the home page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/home.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the home page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/home.css"}}"
+    media="screen"
+  />
+{{!-- This block loads specific styles from the post page --}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/post.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="g-main-container" x-data="home()">
+  <main role="main">
+    {{!-- First section --}}
+    {{#if @custom.home_start_section}}
+      {{#match @custom.home_start_section "Featured articles slider"}}
+        {{> home-slider}}
+      {{/match}}
+      {{#match @custom.home_start_section "Simple Hero section"}}
+        {{> home-hero}}
+      {{/match}}
+    {{else}}
+      {{> home-slider}}
+    {{/if}}
+    {{!-- Custom content --}}
+    <br>
+    <div class="g-post-content js-post-content">
+        <p style="font-size:1.5em">Hi, my name is <a href="https://mitchellens.ink/about/">Mitch</a>. I'm a <a href="https://mitchellens.ink/portfolio/">photographer</a> and writer from The Netherlands. I have a monthly newsletter called ‘Dialogue’ about photography, walking and exploration. I also have a <a href="https://youtube.com/mitchellensink">YouTube channel</a>, where I share videos about street photography strategies and looks behind the scenes.</p>
+      <br>
+      <br>
+       <h2>Highlighted projects</h2>
+      <p>I focus my photography around personal projects. Most of which take between a couple of months or several years
+        to finish. A selection of the ones I'm most proud of can be found below.</p>
+        <figure class="kg-card kg-bookmark-card">
+        <a class="kg-bookmark-container" href="https://mitchellens.ink/projects/the-efflorescence/">
+          <div class="kg-bookmark-content">
+            <div class="kg-bookmark-title">The Efflorescence</div>
+            <div class="kg-bookmark-description">A documentary project about Dutch festival and club culture finding its
+              way back to relevance during pandemic times.</div>
+            <div class="kg-bookmark-metadata"><img class="kg-bookmark-icon"
+                src="https://mitchellens.ink/content/images/size/w256h256/2021/10/De-Lens-Logo-Icon-Color-300x300px.png"
+                alt="project bookmark icon"><span class="kg-bookmark-author">Apr 29, 2023</span><span
+                class="kg-bookmark-publisher">Mitchel Lensink</span></div>
+          </div>
+          <div class="kg-bookmark-thumbnail"><img
+              src="https://mitchellens.ink/content/images/size/w2000/2023/06/Mitchel-Lensink_230428_de-Ontluiking-Boek_852.jpg"
+              alt="the efflorescence photography book"></div>
+        </a>
+      </figure>
+      <figure class="kg-card kg-bookmark-card">
+        <a class="kg-bookmark-container" href="https://mitchellens.ink/projects/one-two-one/">
+          <div class="kg-bookmark-content">
+            <div class="kg-bookmark-title">One Two One</div>
+            <div class="kg-bookmark-description">One Two One a black and white photography project, created during a
+              period where a global pandemic, with its imposed restrictions, and a personal search for more fulfilling
+              work come together.A book has been produced, of which only one copy exists.</div>
+            <div class="kg-bookmark-metadata"><img class="kg-bookmark-icon"
+                src="https://mitchellens.ink/content/images/size/w256h256/2021/10/De-Lens-Logo-Icon-Color-300x300px.png"
+                alt="project bookmark icon"><span class="kg-bookmark-author">Feb 28, 2021</span><span
+                class="kg-bookmark-publisher">Mitchel Lensink</span></div>
+          </div>
+          <div class="kg-bookmark-thumbnail"><img
+              src="https://mitchellens.ink/content/images/2023/01/Mitchel-Lensink_201212_Hoge-Veluwe_038-6.jpg"
+              alt="one two one photography project"></div>
+        </a>
+      </figure>
+      <figure class="kg-card kg-bookmark-card">
+        <a class="kg-bookmark-container" href="https://mitchellens.ink/projects/winter-allotment/">
+          <div class="kg-bookmark-content">
+            <div class="kg-bookmark-title">Winter Allotment</div>
+            <div class="kg-bookmark-description">A small photography project, shot in one afternoon in the waning winter
+              sun. Focussing on the hidden beauties of a communal allotment garden.</div>
+            <div class="kg-bookmark-metadata"><img class="kg-bookmark-icon"
+                src="https://mitchellens.ink/content/images/size/w256h256/2021/10/De-Lens-Logo-Icon-Color-300x300px.png"
+                alt="project bookmark icon"><span class="kg-bookmark-author">Jan 12, 2021</span><span
+                class="kg-bookmark-publisher">Mitchel Lensink</span></div>
+          </div>
+          <div class="kg-bookmark-thumbnail"><img
+              src="https://mitchellens.ink/content/images/2023/01/Mitchel-Lensink_210209_A-Sunny-Winter-Afternoon-in-the-Garden_006-1.jpg"
+              alt="winter allotment small photography project"></div>
+        </a>
+      </figure>
+      <figure class="kg-card kg-bookmark-card">
+        <a class="kg-bookmark-container" href="https://mitchellens.ink/projects/one-two-one/">
+          <div class="kg-bookmark-content">
+            <div class="kg-bookmark-title">The Silence Around</div>
+            <div class="kg-bookmark-description">Panorama photos that allowed people to take a step back from the
+              hectics of modern life.</div>
+            <div class="kg-bookmark-metadata"><img class="kg-bookmark-icon"
+                src="https://mitchellens.ink/content/images/size/w256h256/2021/10/De-Lens-Logo-Icon-Color-300x300px.png"
+                alt="project bookmark icon"><span class="kg-bookmark-author">Oct 26, 2020</span><span
+                class="kg-bookmark-publisher">Mitchel Lensink</span></div>
+          </div>
+          <div class="kg-bookmark-thumbnail"><img
+              src="https://mitchellens.ink/content/images/2023/01/Mitchel-Lensink-200730-De-Stilte-Rondom-031-scaled-2048x1366.jpg"
+              alt="the silence around photography project"></div>
+        </a>
+      </figure>
+    </div>
+    {{!-- Newsletter form --}}
+    {{> newsletter-form}}
+  </main>
+  </div>
+
+
+  <script>
+    function home() {
+      return {
+        scrollToContent() {
+          this.$dispatch('scroll-to', { element: '.js-main-content' })
+        }
+      }
+    }
+  </script>

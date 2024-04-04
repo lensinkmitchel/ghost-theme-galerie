@@ -1,0 +1,39 @@
+{{!--
+  This template renders a home slide at the top of the page.
+--}}
+
+<div class="g-home-slide {{#if slide_image}}with-image{{/if}}">
+  {{#if slide_image}}
+    {{> hero-image hero_image=slide_image}}
+  {{/if}}
+  <div
+    class="g-home-slide__content"
+    data-swiper-parallax="-25%"
+    data-swiper-parallax-duration="700"
+  >
+    {{#if main_slide}}
+      <h1 class="g-home-slide__title">
+        {{slide_title}}
+      </h1>
+    {{else}}
+      <h1 class="g-home-slide__title thin">
+        <a href="{{slide_cta_link}}">
+          {{slide_title}}
+        </a>
+      </h1>
+    {{/if}}
+    {{#if slide_description}}
+      <p class="g-home-slide__description">{{slide_description}}</p>
+    {{/if}}
+    {{#if slide_cta}}
+      <a
+        class="g-home-slide__cta-link"
+        href="{{#if main_slide}}{{slide_cta_link}}{{slide_cta_link_path}}{{else}}{{slide_cta_link}}{{/if}}"
+        aria-hidden="{{#if main_slide}}false{{else}}true{{/if}}"
+        tabindex="{{#if main_slide}}0{{else}}-1{{/if}}"
+      >
+        {{slide_cta_label}}
+      </a>
+    {{/if}}
+  </div>
+</div>

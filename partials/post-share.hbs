@@ -1,0 +1,84 @@
+{{!--
+  This template renders the section with buttons to share a post.
+--}}
+
+<section class="g-share {{#is "page"}}in-page{{/is}}" x-data="sharePost()">
+  <div class="g-share__wrapper">
+    <div class="g-share__container">
+      <ul class="g-share__list">
+        <li>
+          <a
+            href="https://twitter.com/intent/tweet?text={{encode title}}&url={{url absolute='true'}}"
+            target="_blank"
+            rel="noopener"
+            aria-label="{{t "Share on Twitter"}}"
+            class="g-share__button focusable"
+          >
+            <span class="icon-twitter" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.facebook.com/sharer/sharer.php?u={{url absolute='true'}}"
+            target="_blank"
+            rel="noopener"
+            aria-label="{{t "Share on Facebook"}}"
+            class="g-share__button focusable"
+          >
+            <span class="icon-facebook-squared" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.linkedin.com/sharing/share-offsite/?url={{url absolute='true'}}"
+            target="_blank"
+            rel="noopener"
+            aria-label="{{t "Share on Linkedin"}}"
+            class="g-share__button focusable"
+          >
+            <span class="icon-linkedin" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <button
+            class="g-share__button focusable"
+            aria-label="{{t "Copy link"}}"
+            @click="copyLink('{{url absolute='true'}}')"
+          >
+            <span
+              x-show="!linkCopied"
+              x-transition:enter.duration.200ms
+              class="icon-link"
+              aria-hidden="true"
+            ></span>
+            <span
+              x-show="linkCopied"
+              x-transition:enter.duration.200ms
+              x-cloak
+              class="icon-check-circled-outline"
+              aria-hidden="true"
+            ></span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  function sharePost() {
+    return {
+      linkCopied: false,
+      copyLink(url) {
+        const self = this
+        navigator.clipboard.writeText(url)
+          .then(() => {
+            self.linkCopied = true
+            setTimeout(() => {
+              self.linkCopied = false
+            }, 3000)
+          })
+      }
+    }
+  }
+</script>

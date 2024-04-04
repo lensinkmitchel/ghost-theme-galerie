@@ -1,0 +1,14 @@
+.g-footer-title {
+  flex-basis: 50%;
+  line-height: 1.26;
+  letter-spacing: 0.0462rem;
+  font-size: 1.625rem;
+  font-weight: bold;
+
+  @include respond-to('medium') {
+    flex-basis: 12.5rem;
+    line-height: 1.18;
+    letter-spacing: 0.0569rem;
+    font-size: 2rem;
+  }
+}

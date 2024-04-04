@@ -1,0 +1,37 @@
+.g-author-hero {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: relative;
+  height: 22.5rem;
+  overflow: hidden;
+  z-index: 1;
+
+  @include respond-to('medium') {
+    height: 31.25rem;
+  }
+}
+
+.g-author-hero__social {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: var(--max-width-container);
+  padding: 0 var(--spacing-s);
+  margin: 0 auto var(--spacing-s);
+  position: relative;
+  z-index: 2;
+
+  @include respond-to('medium') {
+    padding: 0 var(--spacing-m);
+    margin-bottom: 1.875rem;
+  }
+
+  @include respond-to('large') {
+    padding: 0 var(--spacing-l);
+  }
+
+  @include respond-to('largest') {
+    padding: 0;
+  }
+}

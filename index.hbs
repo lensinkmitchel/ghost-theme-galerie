@@ -1,0 +1,53 @@
+{{!--
+  This template is used for the index page.
+  It can be used also as the home page or the default page.
+--}}
+
+{{!-- This block preloads specific assets for the home page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/home.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the home page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/home.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="g-main-container" x-data="home()">
+  <main role="main">
+    {{!-- First section --}}
+    {{#if @custom.home_start_section}}
+      {{#match @custom.home_start_section "Featured articles slider"}}
+        {{> home-slider}}
+      {{/match}}
+      {{#match @custom.home_start_section "Simple Hero section"}}
+        {{> home-hero}}
+      {{/match}}
+    {{else}}
+      {{> home-slider}}
+    {{/if}}
+    {{!-- List of articles --}}
+    {{> loop}}
+    {{!-- Newsletter form --}}
+    {{> newsletter-form}}
+  </main>
+</div>
+
+<script>
+  function home() {
+    return {
+      scrollToContent() {
+        this.$dispatch('scroll-to', { element: '.js-main-content' })
+      }
+    }
+  }
+</script>

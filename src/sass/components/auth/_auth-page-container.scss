@@ -1,0 +1,7 @@
+.g-auth-page-container {
+  @include respond-to('large') {
+    display: flex;
+    align-items: stretch;
+    min-height: 100vh;
+  }
+}

@@ -1,0 +1,39 @@
+{{!--
+  This template loads the necessary assets for the Lightbox plugin.
+--}}
+
+{{^if @custom.disable_images_lightbox}}
+  {{#contentFor "preload"}}
+    <link rel="preload" href="{{asset "vendor/lightgallery/css/lightgallery-bundle.min.css"}}" as="style" />
+    <link rel="preload" href="{{asset "vendor/lightgallery/css/lg-transitions.css"}}" as="style" />
+  {{/contentFor}}
+
+  {{#contentFor "styles"}}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{asset "vendor/lightgallery/css/lightgallery-bundle.min.css"}}"
+      media="screen"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{asset "vendor/lightgallery/css/lg-transitions.css"}}"
+      media="screen"
+    />
+
+    <style>
+      .lg-outer .lg-item:not(.lg-start-end-progress),
+      .lg-comment-box .fb-comments {
+        background-image: url({{asset "vendor/lightgallery/images/loading.gif"}});
+      }
+    </style>
+  {{/contentFor}}
+
+  {{#contentFor "scripts"}}
+    <script defer src="{{asset "vendor/lightgallery/js/lightgallery.min.js"}}"></script>
+    <script defer src="{{asset "vendor/lightgallery/js/plugins/lg-zoom.min.js"}}"></script>
+    <script defer src="{{asset "vendor/lightgallery/js/plugins/lg-fullscreen.min.js"}}"></script>
+    <script defer src="{{asset "js/lightbox.js"}}"></script>
+  {{/contentFor}}
+{{/if}}

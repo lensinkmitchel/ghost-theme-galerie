@@ -1,0 +1,18 @@
+.g-account-container {
+  min-height: 100vh;
+  padding: 8rem 0 var(--spacing-l);
+
+  @include respond-to('medium') {
+    padding: 11.625rem 0;
+  }
+}
+
+.g-account-container__wrapper {
+  padding: 0 var(--spacing-s);
+  max-width: 35rem;
+  margin: 0 auto;
+
+  @include respond-to('medium') {
+    padding: 0;
+  }
+}

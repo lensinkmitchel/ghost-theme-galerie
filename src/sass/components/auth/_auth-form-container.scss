@@ -1,0 +1,78 @@
+.g-auth-form-container {
+  @include respond-to('medium') {
+    max-width: calc(55% - var(--spacing-l));
+  }
+
+  &.full-width {
+    max-width: 100%;
+  }
+
+  &.loading {
+    .g-auth-form__button {
+      cursor: default;
+
+      &:hover {
+        span {
+          @include transform(none);
+        }
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 3px;
+        pointer-events: none;
+        background: linear-gradient(
+          -90deg,
+          var(--gradient-first-color) 0%,
+          var(--gradient-second-color) 40%,
+          var(--gradient-second-color) 45%,
+          var(--gradient-second-color) 55%,
+          var(--gradient-first-color) 60%
+        );
+        background-size: 250% 250%;
+        @include animation('loading 2s linear infinite');
+        @include keyframes(loading) {
+          0% {
+            background-position: 150% 0;
+          }
+          100% {
+            background-position: 0 0;
+          }
+        }
+      }
+    }
+  }
+
+  &.success {
+    .g-auth-form-container__normal {
+      display: none;
+    }
+
+    .g-auth-form-container__success {
+      display: block;
+    }
+  }
+
+  &.invalid,
+  &.error {
+    .g-auth-form-container__error {
+      display: block;
+    }
+  }
+
+  &:not(.success) {
+    .g-auth-form-container__success {
+      display: none;
+    }
+  }
+
+  &:not(.error):not(.invalid) {
+    .g-auth-form-container__error {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{{!--
+  This template renders the circles shape that appears as fallback
+  when related content is not available.
+--}}
+
+{{#if alt_version}}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="520"
+    height="520"
+    viewBox="0 0 520 520"
+    class="g-circles-shape alt-version"
+    aria-hidden="true"
+  >
+  <g fill="none" fill-rule="evenodd" class="stroke-shape">
+    <circle cx="260" cy="260" r="187.5"/>
+    <circle cx="260" cy="260" r="259.5"/>
+    <circle cx="259.5" cy="260.5" r="115"/>
+  </g>
+</svg>
+{{else}}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="32"
+    height="32"
+    viewBox="0 0 32 32"
+    class="g-circles-shape"
+    aria-hidden="true"
+  >
+    <g fill="none" fill-rule="evenodd" class="stroke-shape">
+      <circle cx="16" cy="16" r="15.5"/>
+      <circle cx="16" cy="16" r="7.5"/>
+    </g>
+  </svg>
+{{/if}}

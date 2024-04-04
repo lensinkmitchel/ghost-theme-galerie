@@ -1,0 +1,81 @@
+{{!--
+  This template renders the footer at the bottom.
+--}}
+
+<footer class="g-footer" x-data>
+  <div class="g-wrapper">
+    <div class="g-footer__main">
+      <a href="{{@site.url}}" class="g-footer-title">{{@site.title}}</a>
+      <button
+        class="g-footer-button no-appearance focusable content-centered"
+        aria-label="{{t "Open search"}}"
+        {{#if @custom.enable_native_search}}
+          data-ghost-search
+        {{else}}
+          @click="$dispatch('open-search')"
+        {{/if}}
+      >
+        <span class="icon-search" aria-hidden="true"></span>
+      </button>
+      <div class="g-footer-navigation">
+        <nav aria-label="{{t "Main navigation in footer"}}">
+          <ul>
+            {{navigation}}
+          </ul>
+        </nav>
+        <nav aria-label="{{t "Secondary navigation in footer"}}">
+          <ul>
+            {{navigation type="secondary"}}
+          </ul>
+        </nav>
+        {{#if @member}}
+          <nav aria-label="{{t "Account navigation in footer"}}">
+            <ul>
+              <li>
+                <a href="{{#if @custom.portal_for_membership_experience}}#/portal/account{{else}}{{@site.url}}/account{{/if}}">
+                  {{t "My Account"}}
+                </a>
+              </li>
+              <li>
+                <a href="#signout" data-members-signout>{{t "Sign Out"}}</a>
+              </li>
+            </ul>
+          </nav>
+        {{else}}
+          {{#if @site.members_enabled}}
+            <nav aria-label="{{t "Authentication navigation in footer"}}">
+              <ul>
+                <li>
+                  <a href="{{#if @custom.portal_for_membership_experience}}#/portal/signup{{else}}{{@site.url}}/signup{{/if}}">
+                    {{t "Sign Up"}}
+                  </a>
+                </li>
+                <li>
+                  <a href="{{#if @custom.portal_for_membership_experience}}#/portal/signin{{else}}{{@site.url}}/signin{{/if}}">
+                    {{t "Sign In"}}
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="g-footer__bottom">
+      <nav class="g-footer__social" aria-label="{{t "Social links in footer"}}">
+        {{> social-links}}
+      </nav>
+      <p class="g-footer-copyright">
+        {{#if @custom.footnote_text_override}}
+          {{@custom.footnote_text_override}}
+        {{else}}
+          <span>{{@site.title}} &copy; {{date format="YYYY"}}</span>
+          <span>—</span>
+          <span>
+            {{{t "Proudly published with {ghostlink}" ghostlink="<a href=\"https://ghost.org\">Ghost</a>"}}}
+          </span>
+        {{/if}}
+      </p>
+    </div>
+  </div>
+</footer>

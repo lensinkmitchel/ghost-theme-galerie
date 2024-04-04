@@ -1,0 +1,224 @@
+{{!--
+  This template is used for the account page.
+--}}
+
+{{!-- This block preloads specific assets for the account page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/account.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the account page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/account.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< ../default}}
+
+<div class="g-main-container">
+  {{#if @member.paid}}
+    {{!-- Logged in, paying member: Show account info --}}
+    <main 
+      role="main"
+      x-data="{
+        labels: {
+          Monthly: '{{t "Monthly"}}',
+          Yearly: '{{t "Yearly"}}',
+          Complimentary: '{{t "Complimentary"}}',
+          active: '{{t "active"}}',
+          trialing: '{{t "trialing"}}',
+          unpaid: '{{t "unpaid"}}',
+          past_due: '{{t "past_due"}}',
+          canceled: '{{t "canceled"}}',
+          month: '{{t "month"}}',
+          year: '{{t "year"}}'
+        }
+      }"
+    >
+      <div class="g-account-container">
+        <div class="g-account-container__wrapper">
+          <section class="g-account-header">
+            <div class="g-account-header__avatar">
+              <div class="g-account-header__avatar__fallback">
+                {{> circles-shape}}
+              </div>
+              {{#if @member.avatar_image}}
+                <img
+                  data-src="{{@member.avatar_image}}"
+                  alt=""
+                  class="lazy"
+                  width="160"
+                  height="160"
+                >
+              {{/if}}
+            </div>
+            <div class="g-account-header__main">
+              <span class="g-account-header__label">
+                {{t "Subscriber"}}
+              </span>
+              {{#if @member.name}}
+                <h1 class="g-account-header__name">
+                  {{@member.name}}
+                </h1>
+              {{/if}}
+              <span class="g-account-header__email">
+                {{@member.email}}
+              </span>
+              <a
+                href="javascript:"
+                class="g-account-header__link"
+                data-members-edit-billing
+              >
+                {{t "Edit billing info"}}
+              </a>
+            </div>
+          </section>
+          <section>
+            <span class="g-account-section-label">
+              {{t "Subscriptions"}}
+            </span>
+            {{#foreach @member.subscriptions}}
+              <div
+                class="g-account-subscription {{#if @last}}last{{/if}}"
+              >
+                <div class="g-account-subscription__header">
+                  <h2
+                    class="g-account-subscription__title"
+                    x-text="labels['{{plan.nickname}}']"
+                  ></h2>
+                  <span
+                    class="g-account-subscription__status {{status}}"
+                    x-text="labels['{{status}}']"
+                  ></span>
+                </div>
+                <div class="g-account-subscription__grid">
+                  <div class="g-account-subscription__grid__item">
+                    <span class="g-account-subscription__label">
+                      {{t "Plan"}}
+                    </span>
+                    <p class="g-account-subscription__value">
+                      <span class="g-account-subscription__currency">
+                        {{price currency=plan.currency}}
+                      </span> 
+                      <span
+                        x-text="parseFloat({{ plan.amount }} / 100).toFixed(2).replace('.', ',')"
+                        class="g-account-subscription__amount"
+                      >
+                      </span> 
+                      <span class="g-account-subscription__divider">
+                        /
+                      </span> 
+                      <span
+                        x-text="labels['{{plan.interval}}']"
+                        class="g-account-subscription__interval"
+                      >
+                      </span>
+                    </p>
+                  </div>
+                  <div class="g-account-subscription__grid__item">
+                    <span class="g-account-subscription__label">
+                      {{t "Next bill date"}}
+                    </span>
+                    <p class="g-account-subscription__value">
+                      {{date current_period_end format="DD MMM YYYY"}}
+                    </p>
+                  </div>
+                  <div class="g-account-subscription__grid__item grow">
+                    <span class="g-account-subscription__label">
+                      {{t "Email address"}}
+                    </span>
+                    <p class="g-account-subscription__value">
+                      {{customer.email}}
+                    </p>
+                  </div>
+                  <div class="g-account-subscription__grid__item grow">
+                    <span class="g-account-subscription__label">
+                      {{t "Card number"}}
+                    </span>
+                    <p class="g-account-subscription__value">
+                      **** **** **** {{default_payment_card_last4}}
+                    </p>
+                  </div>
+                </div>
+                {{cancel_link
+                  class="g-account-subscription__link"
+                  errorClass="g-auth-error"
+                  cancelLabel=(t "Cancel subscription")
+                  continueLabel=(t "Continue subscription")
+                }}
+              </div>
+            {{/foreach}}
+          </section>
+        </div>
+      </div>
+    </main>
+  {{else if @member}}
+    {{!-- Logged in, not paying: Link to checkout --}}
+    <main role="main">
+      <div class="g-account-container">
+        <div class="g-account-container__wrapper">
+          <section class="g-account-header">
+            <div class="g-account-header__avatar">
+              <div class="g-account-header__avatar__fallback">
+                {{> circles-shape}}
+              </div>
+              {{#if @member.avatar_image}}
+                <img
+                  data-src="{{@member.avatar_image}}"
+                  alt=""
+                  class="lazy"
+                  width="160"
+                  height="160"
+                >
+              {{/if}}
+            </div>
+            <div class="g-account-header__main">
+              <span class="g-account-header__label">
+                {{t "Member"}}
+              </span>
+              {{#if @member.name}}
+                <h1 class="g-account-header__name">
+                  {{@member.name}}
+                </h1>
+              {{/if}}
+              <span class="g-account-header__email">
+                {{@member.email}}
+              </span>
+            </div>
+          </section>
+          <section>
+            <span class="g-account-section-label">
+              {{t "Subscriptions"}}
+            </span>
+            <div class="g-account-subscription last">
+              <div class="g-account-subscription__header">
+                <h2 class="g-account-subscription__title">
+                  {{t "No subscriptions"}}
+                </h2>
+              </div>
+              <p>
+                {{t "Currently, you're not a subscriber. Unlock full access and see the entire library of members-only content & updates."}}
+              </p>
+              <br><br>
+              <a
+                href="{{@site.url}}/membership"
+                class="g-button"
+              >
+                {{t "Subscribe Now"}}
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  {{else}}
+    {{!-- Not logged in: Redirect to signin --}}
+    <script>window.location = '{{@site.url}}/signin/'</script>
+  {{/if}}
+</div>

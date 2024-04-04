@@ -1,0 +1,100 @@
+{{!--
+  This template is used for the tags page.
+--}}
+
+{{!-- This block preloads specific assets for the tags page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/tags.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the tags page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/tags.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="g-main-container">
+  <main role="main">
+    {{!-- Everything inside the #post tags pulls data from the page --}}
+    {{#post}}
+      {{!-- Main Hero component --}}
+      <section
+        class="g-generic-hero {{#if feature_image}}with-image{{/if}}"
+      >
+        {{#if feature_image}}
+          {{> hero-image
+            hero_image=feature_image
+            alt_image=feature_image_alt
+          }}
+        {{/if}}
+        <div class="g-generic-hero__container">
+          <div class="g-wrapper">
+            <div
+              class="g-generic-hero__content {{#if feature_image}}with-image{{/if}}"
+            >
+              <h1 class="g-generic-hero__title">{{title}}</h1>
+              {{#if custom_excerpt}}
+                <p class="g-generic-hero__description">{{custom_excerpt}}</p>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      </section>
+    {{/post}}
+    {{!-- List of tags --}}
+    {{#get
+      "tags"
+      limit="all"
+      include="count.posts"
+      order="count.posts desc"
+    }}
+      <section class="g-tags-grid">
+        <div class="g-wrapper">
+          <div class="g-tags-grid__container">
+            {{#foreach tags}}
+              <div class="g-tags-grid__item {{#if @last}}last{{/if}}">
+                <a href="{{url}}" class="g-tag-card">
+                  <div
+                    class="g-tag-card__image {{^if feature_image}}no-image{{/if}}"
+                  >
+                    <div class="g-tag-card__image__fallback">
+                      {{> circles-shape}}
+                    </div>
+                    {{#if feature_image}}
+                      <img
+                        data-src="{{img_url feature_image size="xs"}}"
+                        alt=""
+                        class="lazy"
+                        width="60"
+                        height="60"
+                      >
+                    {{/if}}
+                  </div>
+                  <h2 class="g-tag-card__name">{{name}}</h2>
+                  {{#if description}}
+                    <p class="g-tag-card__description">
+                      {{description}}
+                    </p>
+                  {{/if}}
+                  <div class="g-tag-card__bottom">
+                    <span class="icon-arrow-right" aria-hidden="true"></span>
+                  </div>
+                </a>
+              </div>
+            {{/foreach}}
+          </div>
+        </div>
+      </section>
+    {{/get}}
+    {{!-- Newsletter form --}}
+    {{> newsletter-form}}
+  </main>
+</div>

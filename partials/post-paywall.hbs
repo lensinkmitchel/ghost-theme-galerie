@@ -1,0 +1,127 @@
+{{!--
+  This template renders a message when the user doesn't have access to the post.
+--}}
+
+<div class="g-paywall">
+  <div class="g-paywall__container">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="116"
+      height="84"
+      viewBox="0 0 116 84"
+      aria-hidden="true"
+      class="g-paywall__icons js-disable-zoom"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity=".202"
+        transform="translate(1 1.084)"
+      >
+        <g>
+          <g transform="rotate(-20 70.776 -163.194)">
+            <path
+              class="fill"
+              stroke-width="1.5"
+              d="M11.6666667,11.6666667 L11.6666667,21 M11.6666667,21 L8.4,21 C7.62680135,21 7,21.6268014 7,22.4 L7,38.2666667 C7,39.0398653 7.62680135,39.6666667 8.4,39.6666667 L33.6,39.6666667 C34.3731986,39.6666667 35,39.0398653 35,38.2666667 L35,36.1666667 M11.6666667,21 L19.8333333,21 M16.639,3.23166667 C17.8196667,2.67166667 19.257,2.33333333 21,2.33333333 C28.4666667,2.33333333 30.3333333,8.55633333 30.3333333,11.6666667 L30.3333333,19.6 C30.3333333,20.3731986 30.9601347,21 31.7333333,21 L33.6,21 C33.9713031,21 34.3273986,21.1474996 34.5899495,21.4100505 C34.8525004,21.6726014 35,22.0286969 35,22.4 L35,23.3333333"
+            />
+            <line
+              x2="42"
+              y2="42"
+              class="fill"
+              stroke-width="1.5"
+            />
+          </g>
+        </g>
+        <g>
+          <g transform="translate(0 39.916)">
+            <line
+              x1="21"
+              x2="21"
+              y2="8.4"
+              class="fill"
+              stroke-width="1.5"
+            />
+            <line
+              x1="21"
+              x2="21"
+              y1="33.6"
+              y2="42"
+              class="fill"
+              stroke-width="1.5"
+            />
+            <line
+              x1="42"
+              x2="33.6"
+              y1="21"
+              y2="21"
+              class="fill"
+              stroke-width="1.5"
+            />
+            <line
+              x1="8.4"
+              y1="21"
+              y2="21"
+              class="fill"
+              stroke-width="1.5"
+            />
+            <line
+              x1="6.151"
+              x2="12.09"
+              y1="6.151"
+              y2="12.09"
+              class="fill"
+              stroke-width="1.5"
+            />
+            <line
+              x1="29.91"
+              x2="35.849"
+              y1="29.91"
+              y2="35.849"
+              class="fill"
+              stroke-width="1.5"
+            />
+            <line
+              x1="35.849"
+              x2="29.91"
+              y1="6.151"
+              y2="12.09"
+              class="fill"
+              stroke-width="1.5"
+            />
+            <line
+              x1="12.09"
+              x2="6.153"
+              y1="29.91"
+              y2="35.847"
+              class="fill"
+              stroke-width="1.5"
+            />
+          </g>
+        </g>
+      </g>
+    </svg>
+    <div class="g-paywall__content">
+      <h2 class="g-paywall__title">
+        {{t "This content is only available to subscribers"}}
+      </h2>
+      <p class="g-paywall__description">
+        {{t "Subscribe now and have access to all our stories, enjoy exclusive content and stay up to date with constant updates."}}
+      </p>
+      <a
+        href="{{#if @custom.portal_for_membership_experience}}#/portal/signup{{else}}{{@site.url}}/signup{{/if}}"
+        class="g-button wide no-appearance focusable"
+      >
+        {{t "Unlock content"}}
+      </a>
+      <p class="g-paywall__signin">
+        {{t "Already have an account?"}}
+        <a href="{{#if @custom.portal_for_membership_experience}}#/portal/signin{{else}}{{@site.url}}/signin{{/if}}">
+          {{t "Sign In"}}
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

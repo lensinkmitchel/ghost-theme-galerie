@@ -1,0 +1,16 @@
+button.g-footer-button {
+  color: var(--color-on-dark);
+  width: 2.625rem;
+  height: 2.625rem;
+  cursor: pointer;
+  border-radius: var(--border-radius-s);
+  border: 1px solid var(--border-on-dark);
+
+  @include respond-to('large') {
+    order: 3;
+  }
+
+  span {
+    font-size: 1.375rem;
+  }
+}

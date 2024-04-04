@@ -1,0 +1,60 @@
+{{!--
+  This template renders links to previous and next posts.
+--}}
+
+<section class="g-post-nav">
+  <div class="g-post-nav__wrapper">
+    {{#next_post}}
+      <div class="g-post-nav__item next">
+        <span class="g-post-nav__label">{{t "Next"}}</span>
+        <a href="{{url}}" class="g-post-nav__link">
+          <span class="g-post-nav__title">{{title}}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="38"
+            viewBox="0 0 20 38"
+            class="g-post-nav__icon"
+          >
+            <polyline
+              fill="none"
+              stroke="#121212"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              points="0 0 18 18 0 36"
+              transform="translate(1 1)"
+              class="fill"
+            />
+          </svg>
+        </a>
+      </div>
+    {{/next_post}}
+    {{#prev_post}}
+      <div class="g-post-nav__item previous">
+        <span class="g-post-nav__label">{{t "Previous"}}</span>
+        <a href="{{url}}" class="g-post-nav__link">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="38"
+            viewBox="0 0 20 38"
+            class="g-post-nav__icon"
+          >
+            <polyline
+              fill="none"
+              stroke="#121212"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              points="18 0 0 18 18 36"
+              transform="translate(1 1)"
+              class="fill"
+            />
+          </svg>
+          <span class="g-post-nav__title">{{title}}</span>
+        </a>
+      </div>
+    {{/prev_post}}
+  </div>
+</section>

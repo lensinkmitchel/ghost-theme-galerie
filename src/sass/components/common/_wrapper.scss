@@ -1,0 +1,18 @@
+.g-wrapper {
+  position: relative;
+  padding: 0 var(--spacing-s);
+  margin: 0 auto;
+  max-width: var(--max-width-container);
+
+  @include respond-to('medium') {
+    padding: 0 var(--spacing-m);
+  }
+
+  @include respond-to('large') {
+    padding: 0 var(--spacing-l);
+  }
+
+  @include respond-to('largest') {
+    padding: 0;
+  }
+}

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+  <defs>
+    <filter id="success-a" color-interpolation-filters="auto">
+      <feColorMatrix in="SourceGraphic" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" filter="url(#success-a)" transform="translate(1 -11)">
+    <g transform="translate(0 12)">
+      <polyline stroke="#F7F7F7" stroke-width="1.5" points="13.125 18.383 21 26.258 42 5.258"/>
+      <path stroke="#F7F7F7" stroke-width="1.5" d="M42,21.007665 C41.9972584,30.1631068 36.0633955,38.261626 27.3343888,41.0232495 C18.6053822,43.784873 9.0932329,40.5730577 3.82500111,33.0852105 C-1.44323068,25.5973634 -1.2532386,15.5594032 4.29456875,8.27627504 C9.8423761,0.993146923 19.4692513,-1.85641721 28.0875029,1.23354412"/>
+    </g>
+  </g>
+</svg>

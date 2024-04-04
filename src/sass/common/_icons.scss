@@ -1,0 +1,316 @@
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  font: normal normal normal 1em/1 'Galerie';
+  color: inherit;
+  flex-shrink: 0;
+  speak: none;
+  text-transform: none;
+  /* Better Font Rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*------------------------
+  change icon size
+-------------------------*/
+/* relative units */
+.icon-sm {
+  font-size: 0.8em;
+}
+.icon-lg {
+  font-size: 1.2em;
+}
+/* absolute units */
+.icon-16 {
+  font-size: 16px;
+}
+.icon-32 {
+  font-size: 32px;
+}
+
+/*------------------------
+  spinning icons
+-------------------------*/
+.icon-is-spinning {
+  animation: icon-spin 1s infinite linear;
+}
+@keyframes icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*------------------------
+  rotated/flipped icons
+-------------------------*/
+.icon-rotate-90 {
+  transform: rotate(90deg);
+}
+.icon-rotate-180 {
+  transform: rotate(180deg);
+}
+.icon-rotate-270 {
+  transform: rotate(270deg);
+}
+.icon-flip-y {
+  transform: scaleY(-1);
+}
+.icon-flip-x {
+  transform: scaleX(-1);
+}
+
+/*------------------------
+	icons
+-------------------------*/
+
+.icon-menu-scale::before {
+  content: "\ea02";
+}
+
+.icon-search::before {
+  content: "\ea03";
+}
+
+.icon-arrow-right::before {
+  content: "\ea04";
+}
+
+.icon-cancel::before {
+  content: "\ea05";
+}
+
+.icon-calendar::before {
+  content: "\ea06";
+}
+
+.icon-clock-outline::before {
+  content: "\ea07";
+}
+
+.icon-link::before {
+  content: "\ea08";
+}
+
+.icon-nav-arrow-left::before {
+  content: "\ea09";
+}
+
+.icon-nav-arrow-right::before {
+  content: "\ea0a";
+}
+
+.icon-nav-arrow-down::before {
+  content: "\ea0b";
+}
+
+.icon-arrow-left::before {
+  content: "\ea0c";
+}
+
+.icon-language::before {
+  content: "\ea0d";
+}
+
+.icon-rss-feed-squared::before {
+  content: "\ea0e";
+}
+
+.icon-dribbble::before {
+  content: "\ea0f";
+}
+
+.icon-facebook-squared::before {
+  content: "\ea10";
+}
+
+.icon-google::before {
+  content: "\ea11";
+}
+
+.icon-instagram::before {
+  content: "\ea12";
+}
+
+.icon-linkedin::before {
+  content: "\ea13";
+}
+
+.icon-medium::before {
+  content: "\ea14";
+}
+
+.icon-pocket::before {
+  content: "\ea15";
+}
+
+.icon-telegram::before {
+  content: "\ea16";
+}
+
+.icon-tiktok::before {
+  content: "\ea17";
+}
+
+.icon-twitter::before {
+  content: "\ea18";
+}
+
+.icon-youtube::before {
+  content: "\ea19";
+}
+
+.icon-cloud::before {
+  content: "\ea1a";
+}
+
+.icon-github::before {
+  content: "\ea1b";
+}
+
+.icon-home-simple-door::before {
+  content: "\ea1c";
+}
+
+.icon-heart::before {
+  content: "\ea1d";
+}
+
+.icon-chat-bubble-empty::before {
+  content: "\ea1e";
+}
+
+.icon-check-circled-outline::before {
+  content: "\ea1f";
+}
+
+.icon-modern-tv::before {
+  content: "\ea20";
+}
+
+.icon-half-moon::before {
+  content: "\ea21";
+}
+
+.icon-sun-light::before {
+  content: "\ea22";
+}
+
+.icon-stackoverflow::before {
+  content: "\ea23";
+}
+
+.icon-discord::before {
+  content: "\ea24";
+}
+
+.icon-behance-squared::before {
+  content: "\ea25";
+}
+
+.icon-pinterest::before {
+  content: "\ea26";
+}
+
+.icon-podcast::before {
+  content: "\ea27";
+}
+
+.icon-phone::before {
+  content: "\ea29";
+}
+
+.icon-mail::before {
+  content: "\ea2a";
+}
+
+.icon-shop::before {
+  content: "\ea2b";
+}
+
+.icon-codepen::before {
+  content: "\ea2c";
+}
+
+.icon-creative-commons::before {
+  content: "\ea2d";
+}
+
+.icon-emoji::before {
+  content: "\ea2e";
+}
+
+.icon-gitlab-full::before {
+  content: "\ea2f";
+}
+
+.icon-pin-alt::before {
+  content: "\ea30";
+}
+
+.icon-headset::before {
+  content: "\ea31";
+}
+
+.icon-star-outline::before {
+  content: "\ea32";
+}
+
+.icon-camera::before {
+  content: "\ea33";
+}
+
+.icon-lock::before {
+  content: "\ea34";
+}
+
+.icon-cart::before {
+  content: "\ea35";
+}
+
+.icon-twitter-verified-badge::before {
+  content: "\ea36";
+}
+
+.icon-credit-card::before {
+  content: "\ea37";
+}
+
+.icon-user::before {
+  content: "\ea38";
+}
+
+.icon-half-cookie::before {
+  content: "\ea39";
+}
+
+.icon-apple-mac::before {
+  content: "\ea3a";
+}
+
+.icon-thumbs-up::before {
+  content: "\ea3b";
+}
+
+.icon-thumbs-down::before {
+  content: "\ea3c";
+}
+
+.icon-wallet::before {
+  content: "\ea3e";
+}
+
+.icon-snapchat::before {
+  content: "\ea3f";
+}
+
+.icon-paypal::before {
+  content: "\ea40";
+}
+
+.icon-spotify::before {
+  content: "\ea41";
+}

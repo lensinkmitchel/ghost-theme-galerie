@@ -1,0 +1,46 @@
+.g-footer-copyright {
+  line-height: 1.5;
+  text-align: center;
+  font-size: 0.875rem;
+  opacity: 0.6;
+
+  @include respond-to('medium') {
+    text-align: initial;
+  }
+
+  &.in-menu {
+    span {
+      display: block;
+
+      &:nth-child(2) {
+        display: block;
+      }
+    }
+  }
+
+  span {
+    display: block;
+
+    @include respond-to('medium') {
+      display: inline;
+    }
+
+    &:nth-child(2) {
+      display: none;
+
+      @include respond-to('medium') {
+        display: inline;
+      }
+    }
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    @include transition(opacity linear 200ms);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

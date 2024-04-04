@@ -1,0 +1,45 @@
+{{!--
+  This template renders the hero section at the top of the page.
+--}}
+
+<section
+  class="g-home-slide main-slide {{#if @site.cover_image}}with-image{{/if}}"
+>
+  {{#if @site.cover_image}}
+    {{> hero-image hero_image=@site.cover_image}}
+  {{/if}}
+  <div class="g-home-slide__shape">
+    {{> circles-shape alt_version="true"}}
+  </div>
+  <div class="g-home-slide__content">
+    <h1 class="g-home-slide__title">{{@site.title}}</h1>
+    {{#if @site.description}}
+      <p class="g-home-slide__description">{{@site.description}}</p>
+    {{/if}}
+    {{#if @custom.use_custom_cta}}
+      <a class="g-home-slide__cta-link" href="{{@custom.custom_cta_url}}">
+        {{@custom.custom_cta_text}}
+      </a>
+    {{else}}
+      {{#if @site.members_enabled}}
+        {{^if @member}}
+          <a
+            class="g-home-slide__cta-link"
+            href="{{#if @custom.portal_for_membership_experience}}#/portal/signup{{else}}{{@site.url}}/newsletter{{/if}}"
+          >
+            {{t "Subscribe Now"}}
+          </a>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  </div>
+  <div class="g-home-slide__bottom">
+    <button
+      class="g-home-scroll {{#if @site.cover_image}}with-image{{/if}} no-appearance"
+      aria-label="{{t "Scroll to content"}}"
+      @click="scrollToContent()"
+    >
+      <span></span>
+    </button>
+  </div>
+</section>

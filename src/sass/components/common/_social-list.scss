@@ -1,0 +1,32 @@
+.g-social-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+
+  li {
+    height: 1.125rem;
+    margin: 0 0.75rem;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    a {
+      @include transition(opacity linear 200ms);
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      span {
+        font-size: 1.125rem;
+        vertical-align: middle;
+      }
+    }
+  }
+}

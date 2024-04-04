@@ -1,0 +1,122 @@
+{{!--
+  This template renders the Newsletter form at the bottom of the page.
+--}}
+
+{{#if @site.members_enabled}}
+  {{^if @member}}
+    <section class="g-newsletter">
+      <div class="g-newsletter__shape">
+        {{> circles-shape alt_version="true"}}
+      </div>
+      <div class="g-newsletter__wrapper">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="114"
+          height="69"
+          viewBox="0 0 114 69"
+          aria-hidden="true"
+          class="g-newsletter__icon"
+        >
+          <g
+            fill="none"
+            fill-rule="evenodd"
+            transform="translate(1.837 1.278)"
+          >
+            <g opacity=".2">
+              <g transform="rotate(-8 73.542 -451.079)">
+                <polyline
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  points="10.5 20.303 21 27.653 31.5 20.303"
+                  class="fill"
+                />
+                <path
+                  stroke-width="1.5"
+                  d="M0,37.1028404 L0,14.2800404 C0,12.8047294 0.774035035,11.4375879 2.0391,10.6785404 L18.8391,0.598540408 C20.1691749,-0.199513469 21.8308251,-0.199513469 23.1609,0.598540408 L39.9609,10.6785404 C41.225965,11.4375879 42,12.8047294 42,14.2800404 L42,37.1028404 C42,39.4224364 40.1195959,41.3028404 37.8,41.3028404 L4.2,41.3028404 C1.88040405,41.3028404 0,39.4224364 0,37.1028404 Z"
+                  class="fill"
+                />
+              </g>
+            </g>
+            <g opacity=".202">
+              <g transform="rotate(-24 92.996 19.767)">
+                <polyline
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  points="10.5 8.4 21 15.75 31.5 8.4"
+                  class="fill"
+                />
+                <path
+                  stroke-width="1.5"
+                  d="M0,25.2 L0,4.2 C0,1.88040405 1.88040405,0 4.2,0 L37.8,0 C40.1195959,0 42,1.88040405 42,4.2 L42,25.2 C42,27.5195959 40.1195959,29.4 37.8,29.4 L4.2,29.4 C1.88040405,29.4 0,27.5195959 0,25.2 Z"
+                  class="fill"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+        <div class="g-newsletter__container">
+          <div class="g-newsletter__callout">
+            <h2 class="g-newsletter__title">
+              {{t "Receive monthly stories in your inbox."}}
+            </h2>
+          </div>
+          <form
+            id="newsletter-form"
+            data-members-form="subscribe"
+            class="g-auth-form-container"
+          >
+            <div class="g-auth-form-container__normal">
+              <p class="g-newsletter__text spacing">
+                {{t "Dialogue is a newsletter about photography, walking and other things."}}
+              </p>
+              <div class="g-auth-form">
+                <label for="newsletter-input" class="sr-only">
+                  {{t "Enter your email address"}}
+                </label>
+                <input
+                  id="newsletter-input"
+                  data-members-email
+                  type="email"
+                  required
+                  placeholder="{{t "Enter your email address"}}"
+                  class="g-auth-form__input no-appearance"
+                />
+                <button
+                  id="newsletter-button"
+                  type="submit"
+                  aria-label="{{t "Subscribe Now"}}"
+                  class="g-auth-form__button no-appearance"
+                >
+                  <span class="icon-arrow-right" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="g-auth-form-container__error">
+                <p class="g-auth-error">
+                  {{t "Oops! There was an error sending the email, please try again."}}
+                </p>
+              </div>
+            </div>
+            <div class="g-auth-form-container__success">
+              <div class="g-auth-success">
+                <div class="g-auth-success__icon">
+                  <img
+                    src="{{asset 'images/success.svg'}}"
+                    alt=""
+                    aria-hidden="true"
+                    width="42"
+                    height="42"
+                  >
+                </div>
+                <p class="g-auth-success__text">
+                  {{t "Awesome! Now check your inbox and click the link to confirm your subscription."}}
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  {{/if}}
+{{/if}}

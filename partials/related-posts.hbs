@@ -1,0 +1,31 @@
+{{!--
+  This template renders related posts at the bottom of each post only if
+  tags are available.
+--}}
+
+{{#if tags}}
+  {{#get
+    "posts"
+    limit="3"
+    include="tags"
+    filter="tags:{{primary_tag.slug}}+id:-{{id}}"
+    order="published_at desc"
+    as |related_posts|
+  }}
+    {{#if related_posts}}
+      <section class="g-related-posts">
+        <div class="g-related-posts__wrapper">
+          <div class="g-related-posts__container">
+            <div class="g-related-posts__content">
+              {{#foreach related_posts}}
+                <div class="g-related-posts__item">
+                  {{> post-card related="true"}}
+                </div>
+              {{/foreach}}
+            </div>
+          </div>
+        </div>
+      </section>
+    {{/if}}
+  {{/get}}
+{{/if}}

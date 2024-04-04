@@ -1,0 +1,50 @@
+.g-auth-page-main {
+  color: var(--foreground);
+  padding: var(--spacing-m) var(--spacing-s);
+
+  @include respond-to('medium') {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-m);
+  }
+
+  @include respond-to('large') {
+    align-items: center;
+    justify-content: flex-start;
+    flex-basis: 50%;
+    height: auto;
+    padding: var(--spacing-l);
+  }
+}
+
+.g-auth-page-main__content {
+  max-width: 26.25rem;
+
+  @include respond-to('medium') {
+    max-width: 32.5rem;
+  }
+
+  @include respond-to('large') {
+    max-width: 26.25rem;
+  }
+}
+
+.g-auth-page-main__title {
+  line-height: 1.2;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 0 0 var(--spacing-s);
+
+  @include respond-to('medium') {
+    font-size: 2.25rem;
+  }
+}
+
+.g-auth-page-main__description {
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+.g-auth-page-main__form {
+  padding: var(--spacing-m) 0;
+}

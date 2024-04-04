@@ -1,0 +1,31 @@
+.g-auth-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 22.5rem;
+  margin: 0 auto;
+}
+
+.g-auth-success__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.125rem;
+  height: 3.125rem;
+  border-radius: 50%;
+  margin-bottom: var(--spacing-s);
+  background-color: var(--success);
+
+  img {
+    width: 1.5rem;
+    height: auto;
+  }
+}
+
+.g-auth-success__text {
+  color: var(--foreground);
+  line-height: 1.4;
+  text-align: center;
+  font-size: 1rem;
+}

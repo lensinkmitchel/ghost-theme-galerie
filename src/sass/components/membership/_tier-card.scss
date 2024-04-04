@@ -1,0 +1,136 @@
+.g-tier-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  min-height: 28.75rem;
+  text-align: center;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-m);
+  padding: var(--spacing-m);
+  margin-bottom: var(--spacing-m);
+
+  @include respond-to('medium') {
+    flex-basis: calc(50% - var(--spacing-m));
+    margin-left: var(--spacing-s);
+    margin-right: var(--spacing-s);
+  }
+
+  @include respond-to('extra-large') {
+    flex-basis: calc(33.33% - var(--spacing-m));
+  }
+
+  &.bigger {
+    @include respond-to('extra-large') {
+      flex-basis: calc(50% - var(--spacing-m));
+    }
+  }
+
+  &.last {
+    margin-bottom: 0;
+  }
+
+  &[data-plan="monthly"] {
+    [data-monthly] {
+      display: block;
+    }
+  
+    [data-yearly] {
+      display: none;
+    }
+  }
+
+  &[data-plan="yearly"] {
+    [data-monthly] {
+      display: none;
+    }
+  
+    [data-yearly] {
+      display: block;
+    }
+  }
+}
+
+.g-tier-card__main {
+  width: 100%;
+  color: var(--foreground);
+}
+
+.g-tier-card__bottom {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: var(--spacing-m) 0 0;
+
+  div {
+    width: 100%;
+    max-width: 15.625rem;
+  }
+}
+
+.g-tier-card__plan {
+  color: var(--accent-color);
+  line-height: 1.2;
+  font-size: 1.125rem;
+  font-weight: normal;
+  margin: 0 0 1rem;
+}
+
+.g-tier-card__price {
+  display: block;
+  line-height: 1.1;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-s);
+
+  sup {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+}
+
+.g-tier-card__price__plan {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.g-tier-card__description {
+  line-height: 1.3;
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 1.875rem;
+}
+
+.g-tier-card__list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+
+  li {
+    line-height: 1.5;
+    font-size: 0.875rem;
+    margin-bottom: 0.625rem;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.g-tier-card__icon {
+  display: none;
+  position: absolute;
+  left: -22px;
+  bottom: calc(100% + 8px);
+  width: 109.2px;
+  height: auto;
+
+  @include respond-to('medium') {
+    display: block;
+  }
+
+  .fill {
+    stroke: var(--foreground);
+  }
+}

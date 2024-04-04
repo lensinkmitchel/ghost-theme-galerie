@@ -1,0 +1,40 @@
+{{!--
+  This template renders the social links profiles + RSS feed.
+--}}
+
+<ul class="g-social-list">
+  {{#if @site.twitter}}
+  <li>
+    <a
+      href="{{twitter_url @site.twitter}}"
+      target="_blank"
+      rel="noopener"
+    >
+      <span class="icon-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  </li>
+  {{/if}}
+  {{#if @site.facebook}}
+    <li>
+      <a
+        href="{{facebook_url @site.facebook}}"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon-facebook-squared" aria-hidden="true"></span>
+        <span class="sr-only">Facebook</span>
+      </a>
+    </li>
+  {{/if}}
+  <li>
+    <a
+      href="{{@site.url}}/rss"
+      target="_blank"
+      rel="noopener"
+    >
+      <span class="icon-rss-feed-squared" aria-hidden="true"></span>
+      <span class="sr-only">RSS</span>
+    </a>
+  </li>
+</ul>

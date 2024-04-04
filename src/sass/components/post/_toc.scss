@@ -1,0 +1,59 @@
+.g-toc {
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  padding: var(--spacing-s);
+  margin-bottom: var(--spacing-l);
+}
+
+.g-toc .g-toc__title {
+  line-height: 1.1;
+  text-transform: uppercase;
+  font-size: 1.125rem;
+  font-weight: normal;
+  margin: 0 0 0.75rem;
+
+  @include respond-to('medium') {
+    font-size: 1.25rem;
+  }
+}
+
+.g-toc__container {
+  padding: 1.5rem 0 0;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      line-height: 1.5;
+      font-size: 1rem;
+      margin-bottom: var(--spacing-s);
+
+      @include respond-to('medium') {
+        font-size: 1.125rem;
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      a {
+        text-decoration: none !important;
+      }
+
+      ul {
+        padding: 1.25rem 1.5rem 0;
+
+        li {
+          font-size: 0.875rem;
+          margin-bottom: 1rem;
+          opacity: 0.8;
+
+          @include respond-to('medium') {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+}

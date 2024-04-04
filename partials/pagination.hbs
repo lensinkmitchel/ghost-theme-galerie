@@ -1,0 +1,20 @@
+{{!--
+  This pagination template is used to navigate through older articles.
+--}}
+
+{{#if next}}
+  <div
+    x-show="hasMorePosts"
+    class="g-post-grid__button-container"
+    x-transition:leave.duration.300ms
+  >
+    <button
+      class="g-button wide no-appearance focusable"
+      :class="{'loading': loading}"
+      :disabled="loading"
+      @click="loadMorePosts()"
+    >
+      {{t "Load More"}}
+    </button>
+  </div>
+{{/if}}

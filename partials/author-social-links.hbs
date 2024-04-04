@@ -1,0 +1,44 @@
+{{!--
+  This template renders the social links for authors.
+--}}
+
+{{#has any="twitter, facebook, website"}}
+  <ul class="g-author-social-list {{#if in_hero}}in-hero{{/if}}">
+    {{#if website}}
+      <li>
+        <a
+          href="{{website}}"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="icon-language" aria-hidden="true"></span>
+          <span class="sr-only">{{t "Website"}}</span>
+        </a>
+      </li>
+    {{/if}}
+    {{#if twitter}}
+      <li>
+        <a
+          href="https://twitter.com/{{twitter}}"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="icon-twitter" aria-hidden="true"></span>
+          <span class="sr-only">Twitter</span>
+        </a>
+      </li>
+    {{/if}}
+    {{#if facebook}}
+      <li>
+        <a
+          href="https://facebook.com/{{facebook}}"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="icon-facebook-squared" aria-hidden="true"></span>
+          <span class="sr-only">Facebook</span>
+        </a>
+      </li>
+    {{/if}}
+  </ul>
+{{/has}}

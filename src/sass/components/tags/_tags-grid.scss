@@ -1,0 +1,39 @@
+.g-tags-grid {
+  padding-top: var(--spacing-l);
+  padding-bottom: var(--spacing-m);
+
+  @include respond-to('medium') {
+    padding-top: 6.25rem;
+    padding-bottom: var(--spacing-l);
+  }
+}
+
+.g-tags-grid__container {
+  @include respond-to('medium') {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    gap: var(--spacing-m);
+  }
+
+  @include respond-to('large') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include respond-to('extra-large') {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.g-tags-grid__item {
+  margin-bottom: var(--spacing-m);
+
+  @include respond-to('medium') {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  &.last {
+    margin-bottom: 0;
+  }
+}

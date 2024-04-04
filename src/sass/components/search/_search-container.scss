@@ -1,0 +1,8 @@
+.g-search-container {
+  padding: 0 var(--spacing-s) var(--spacing-m);
+  overflow-x: hidden;
+
+  @include respond-to('medium') {
+    padding: 0 var(--spacing-l) var(--spacing-l);
+  }
+}

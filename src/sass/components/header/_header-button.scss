@@ -1,0 +1,34 @@
+button.g-header-button {
+  color: var(--foreground);
+  height: 2.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  cursor: pointer;
+  border-radius: var(--border-radius-s);
+
+  @include respond-to('medium') {
+    height: 1.875rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+.g-header-button__icon {
+  font-size: 1.375rem;
+
+  @include respond-to('medium') {
+    font-size: 1.125rem;
+  }
+}
+
+.g-header-button__label {
+  display: none;
+
+  @include respond-to('medium') {
+    display: inline-block;
+    letter-spacing: 0.0213rem;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding-left: 0.625rem;
+  }
+}

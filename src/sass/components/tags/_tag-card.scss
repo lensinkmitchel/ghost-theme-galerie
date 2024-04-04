@@ -1,0 +1,111 @@
+.g-tag-card {
+  display: block;
+  color: var(--foreground);
+  width: 100%;
+  padding: var(--spacing-s);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-m);
+  position: relative;
+  overflow: hidden;
+  @include transition(opacity 200ms linear);
+
+  @include respond-to("medium") {
+    height: 20rem;
+  }
+
+  &:hover {
+    opacity: 0.8;
+
+    .g-tag-card__bottom span {
+      @include animation("arrowCardAnimation 200ms ease-in-out");
+      @include keyframes(arrowCardAnimation) {
+        0% {
+          opacity: 0;
+          @include transform(translateX(-20px));
+        }
+        100% {
+          opacity: 1;
+          @include transform(translateX(0));
+        }
+      }
+    }
+  }
+}
+
+.g-tag-card__image {
+  width: 3.75rem;
+  height: 3.75rem;
+  margin-bottom: var(--spacing-s);
+  border-radius: var(--border-radius-m);
+  position: relative;
+  overflow: hidden;
+
+  &.no-image {
+    background-color: var(--light-background);
+  }
+
+  img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 2;
+  }
+}
+
+.g-tag-card__image__fallback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 2rem;
+  z-index: 1;
+  @include transform(translate(-50%, -50%));
+}
+
+.g-tag-card__name {
+  line-height: 1.2;
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin: 0 0 0.625rem;
+}
+
+.g-tag-card__description {
+  line-height: 1.5;
+  font-size: 0.9375rem;
+  max-width: 90%;
+  opacity: 0.8;
+  margin-bottom: var(--spacing-s);
+
+  @include respond-to("extra-large") {
+    max-width: 100%;
+  }
+}
+
+.g-tag-card__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--spacing-s) 0;
+  margin-bottom: calc(var(--spacing-s) * -1);
+
+  @include respond-to("medium") {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: var(--spacing-s);
+    margin-bottom: 0;
+    z-index: 2;
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-card-background) 0%,
+      var(--background) 20%
+    );
+  }
+
+  span {
+    color: inherit;
+    font-size: 1.5rem;
+  }
+}

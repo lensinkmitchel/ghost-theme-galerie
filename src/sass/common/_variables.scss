@@ -1,0 +1,24 @@
+:root {
+  --font-base: 1rem;
+  --font-family: 'Atkinson Hyperlegible', Helvetica, Arial, sans-serif;
+  --border-radius-s: 0.625rem;
+  --border-radius-m: 0.9375rem;
+  --max-width-container: 72.5rem;
+  --max-width-post-container: 47.5rem;
+  --spacing-s: 1.25rem;
+  --spacing-m: 2.5rem;
+  --spacing-l: 3.75rem;
+
+  /* Configurable by user */
+  --show-loading-animation: 1;
+  --show-slide-up-animation: 1;
+  --hero-image-transparency: 0.6;
+  --hero-image-gradient-transparency: 0.4;
+  --backdrop-opacity: 0.8;
+  --backgrop-controls-opacity: 0.2;
+  --post-card-height: 38.75rem;
+  --hide-post-card-overlay: 1;
+  --hover-post-image-zoom: 1.1;
+  --post-feature-image-width: 100%;
+  --show-post-card-excerpt: none;
+}

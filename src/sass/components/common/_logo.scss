@@ -1,0 +1,41 @@
+.g-logo {
+  &.in-drawer {
+    span {
+      font-size: 1.125rem;
+
+      @include respond-to('medium') {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  img {
+    width: auto;
+    height: 1.625rem;
+
+    @include respond-to('medium') {
+      height: 1.875rem;
+    }
+
+    &.g-logo__image-light {
+      display: var(--display-light-logo);
+    }
+
+    &.g-logo__image-dark {
+      display: var(--display-dark-logo);
+    }
+  }
+
+  span {
+    display: block;
+    color: var(--foreground);
+    text-align: center;
+    line-height: 1.3;
+    font-size: 1rem;
+    font-weight: bold;
+
+    @include respond-to('medium') {
+      font-size: 1.125rem;
+    }
+  }
+}

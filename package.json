@@ -1,0 +1,132 @@
+{
+  "author": {
+    "email": "this.eduardo@gmail.com",
+    "name": "Eduardo Gómez",
+    "url": "https://eduardogomez.io"
+  },
+  "config": {
+    "posts_per_page": 12,
+    "card_assets": {
+      "exclude": ["bookmark", "gallery"]
+    },
+    "image_sizes": {
+      "xxs": {
+        "width": 75
+      },
+      "xs": {
+        "width": 150
+      },
+      "s": {
+        "width": 250
+      },
+      "m": {
+        "width": 500
+      },
+      "l": {
+        "width": 1000
+      },
+      "xl": {
+        "width": 2000
+      }
+    },
+    "custom": {
+      "content_api_key": {
+        "type": "text"
+      },
+      "enable_native_search": {
+        "type": "boolean",
+        "default": false
+      },
+      "portal_for_membership_experience": {
+        "type": "boolean",
+        "default": false
+      },
+      "dark_mode_logo": {
+        "type": "image"
+      },
+      "dark_mode_accent_color": {
+        "type": "color",
+        "default": "#7209b7"
+      },
+      "post_tiles_layout": {
+        "type": "select",
+        "options": ["Mosaic", "Two columns", "Grid", "Insta"],
+        "default": "Mosaic"
+      },
+      "always_show_post_title": {
+        "type": "boolean",
+        "default": false
+      },
+      "disable_loading_animation": {
+        "type": "boolean",
+        "default": false
+      },
+      "footnote_text_override": {
+        "type": "text"
+      },
+      "home_start_section": {
+        "type": "select",
+        "options": ["Featured articles slider", "Simple Hero section"],
+        "default": "Featured articles slider",
+        "group": "homepage"
+      },
+      "disable_slider_autoplay": {
+        "type": "boolean",
+        "default": false,
+        "group": "homepage"
+      },
+      "use_custom_cta": {
+        "type": "boolean",
+        "default": false,
+        "group": "homepage"
+      },
+      "custom_cta_text": {
+        "type": "text",
+        "default": "Subscribe",
+        "group": "homepage"
+      },
+      "custom_cta_url": {
+        "type": "text",
+        "default": "/newsletter",
+        "group": "homepage"
+      },
+      "disable_images_lightbox": {
+        "type": "boolean",
+        "default": false,
+        "group": "post"
+      }
+    }
+  },
+  "demo": "https://galerie.eduardogomez.io",
+  "description": "Modern and versatile theme that stands out for its sleek design, it's incredibly fast, it offers a great user experience and it has many options to customise it.",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "gpm": {
+    "type": "theme",
+    "categories": [
+      "Beautiful",
+      "Clean",
+      "Photography",
+      "Gallery",
+      "Modern",
+      "Responsive",
+      "Magazine",
+      "Multi-Purpose",
+      "Light",
+      "Dark"
+    ]
+  },
+  "keywords": [
+    "ghost",
+    "theme",
+    "ghost-theme"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "name": "galerie",
+  "screenshots": {
+    "desktop": "assets/screenshot-desktop.jpg",
+    "mobile": "assets/screenshot-mobile.jpg"
+  },
+  "version": "2.5.0"
+}

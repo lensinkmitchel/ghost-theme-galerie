@@ -1,0 +1,128 @@
+{{!--
+  This template is used for the signin page.
+--}}
+
+{{!-- This block preloads specific assets for the signin page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/auth.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the signin page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/auth.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< ../default}}
+
+<div class="g-main-container">
+  {{#if @member}}
+    {{!-- Logged in: Redirect home --}}
+    <script>window.location = '{{@site.url}}'</script>
+  {{else}}
+    <main role="main">
+      {{!-- Everything inside the #page tags pulls data from the page --}}
+      {{#page}}
+        <section class="g-auth-page-container">
+          <div
+            class="g-auth-page-cover {{^if feature_image}}no-image{{/if}}"
+          >
+            {{#if feature_image}}
+              <img
+                data-src="{{img_url feature_image size='l'}}"
+                data-srcset="
+                  {{img_url feature_image size='m'}} 500w,
+                  {{img_url feature_image size='l'}} 1000w,
+                  {{img_url feature_image size='xl'}} 2000w
+                "
+                sizes="
+                  (min-width: 64rem) 50vw,
+                  100vw
+                "
+                alt="{{feature_image_alt}}"
+                width="720"
+                height="1024"
+                class="g-auth-page-cover__image lazy"
+              >
+            {{/if}}
+          </div>
+          <div class="g-auth-page-main">
+            <div class="g-auth-page-main__content">
+              <h1 class="g-auth-page-main__title">
+                {{t "Welcome back! Glad to see you again."}}
+              </h1>
+              <p class="g-auth-page-main__description">
+                {{t "Sign into your account to manage your newsletter subscription and membership."}}
+              </p>
+              <div class="g-auth-page-main__form">
+                <form
+                  id="signin-form"
+                  data-members-form="signin"
+                  class="g-auth-form-container full-width"
+                >
+                  <div class="g-auth-form-container__normal">
+                    <div class="g-auth-form">
+                      <label for="signin-input" class="sr-only">
+                        {{t "Enter your email address"}}
+                      </label>
+                      <input
+                        id="signin-input"
+                        data-members-email
+                        type="email"
+                        required
+                        placeholder="{{t "Enter your email address"}}"
+                        class="g-auth-form__input no-appearance"
+                      />
+                      <button
+                        id="signin-button"
+                        type="submit"
+                        aria-label="{{t "Send magic link"}}"
+                        class="g-auth-form__button no-appearance"
+                      >
+                        <span
+                          class="icon-arrow-right"
+                          aria-hidden="true"
+                        ></span>
+                      </button>
+                    </div>
+                    <div class="g-auth-form-container__error">
+                      <p class="g-auth-error">
+                        {{t "Oops! There was an error sending the email, please try again."}}
+                      </p>
+                    </div>
+                    <p class="g-auth-signin">
+                      {{t "Don't have an account yet?"}}
+                      <a href="{{@site.url}}/signup">{{t "Sign Up"}}</a>
+                    </p>
+                  </div>
+                  <div class="g-auth-form-container__success">
+                    <div class="g-auth-success">
+                      <div class="g-auth-success__icon">
+                        <img
+                          src="{{asset 'images/success.svg'}}"
+                          alt=""
+                          aria-hidden="true"
+                          width="42"
+                          height="42"
+                        >
+                      </div>
+                      <p class="g-auth-success__text">
+                        {{t "Great! Check your inbox and click the link to complete signin."}}
+                      </p>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      {{/page}}
+    </main>
+  {{/if}}
+</div>

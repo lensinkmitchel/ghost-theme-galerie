@@ -1,0 +1,16 @@
+.g-auth-signin {
+  line-height: 1.2;
+  font-size: 0.875rem;
+  padding: var(--spacing-s) 0;
+  opacity: 0.8;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+    @include transition(opacity 200ms linear);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

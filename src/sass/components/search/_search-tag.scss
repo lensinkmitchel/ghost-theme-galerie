@@ -1,0 +1,12 @@
+.g-search-tag {
+  color: var(--foreground);
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.3125rem;
+  border: 1px solid var(--border);
+  @include transition(opacity linear 200ms);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

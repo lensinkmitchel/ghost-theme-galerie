@@ -1,0 +1,89 @@
+.g-paywall {
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 120px;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      var(--gradient-card-background) 0%,
+      var(--background) 70%
+    );
+  }
+}
+
+.g-paywall__container {
+  position: relative;
+  padding: 5rem var(--spacing-s);
+  margin: 0 auto;
+  border-radius: 1.5625rem;
+  border: 1px solid var(--border);
+  background-color: var(--background);
+}
+
+.g-paywall__icons {
+  position: absolute;
+  top: 16px;
+  left: var(--spacing-s);
+  width: 80px;
+  height: auto;
+
+  @include respond-to('medium') {
+    width: 112px;
+  }
+
+  .fill {
+    stroke: var(--foreground);
+  }
+}
+
+.g-paywall__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+
+  .g-paywall__title {
+    line-height: 1.25;
+    font-size: 1.5rem;
+    font-weight: bold;
+    max-width: 26.25rem;
+    margin: 0 0 var(--spacing-s);
+
+    @include respond-to('medium') {
+      line-height: 1.16;
+      font-size: 2.25rem;
+    }
+  }
+
+  .g-paywall__description {
+    max-width: 31.25rem;
+    margin-bottom: var(--spacing-m);
+
+    @include respond-to('medium') {
+      margin-bottom: var(--spacing-l);
+    }
+
+    &:first-of-type:first-letter {
+      line-height: 100%;
+      vertical-align: inherit;
+      font-size: inherit;
+
+      @include respond-to('medium') {
+        font-size: inherit;
+      }
+    }
+  }
+}
+
+p.g-paywall__signin {
+  font-size: 0.9375rem;
+  padding-top: var(--spacing-s);
+  opacity: 0.8;
+}

@@ -1,0 +1,85 @@
+{{!--
+This template is used for pages.
+--}}
+
+{{!-- This block preloads specific assets for the page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/hero.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the page --}}
+{{#contentFor "styles"}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/hero.css"}}"
+    media="screen"
+  />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="g-main-container">
+  <main role="main">
+    {{!-- Everything inside the #post tags pulls data from the post --}}
+    {{#post}}
+      <article class="custom-template">
+        {{!-- Main Hero component --}}
+        <header class="g-generic-hero {{#if feature_image}}with-image{{/if}}">
+          {{#if feature_image}}
+            {{> hero-image
+            hero_image=feature_image
+            alt_image=feature_image_alt
+            }}
+          {{/if}}
+          <div class="g-generic-hero__container">
+            <div class="g-wrapper">
+              <div
+                class="g-generic-hero__content {{#if feature_image}}with-image{{/if}}"
+              >
+                <h1 class="g-generic-hero__title">{{title}}</h1>
+                {{#if custom_excerpt}}
+                  <p class="g-generic-hero__description">
+                    {{custom_excerpt}}
+                  </p>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </header>
+        <div
+          class="g-post-content custom-hero {{^if feature_image}}no-image{{/if}} js-post-content"
+        >
+          {{#if access}}
+            {{content}}
+          {{else}}
+            {{{html}}}
+            {{> post-paywall}}
+          {{/if}}
+        </div>
+      </article>
+      {{!-- Share --}}
+      {{> post-share}}
+      {{#is "post"}}
+        {{!-- Comments --}}
+        {{> comments}}
+        {{!-- Prev/Next nav --}}
+        {{> post-nav}}
+        {{!-- Related posts --}}
+        {{> related-posts}}
+      {{/is}}
+    {{/post}}
+    {{!-- Newsletter form --}}
+    {{> newsletter-form}}
+  </main>
+</div>
+
+{{!-- This block loads specific scripts for the page --}}
+{{#contentFor "scripts"}}
+  <script defer src="{{asset "js/post.js"}}"></script>
+{{/contentFor}}
+
+{{!-- Lightbox plugin --}}
+{{> post-lightbox}}

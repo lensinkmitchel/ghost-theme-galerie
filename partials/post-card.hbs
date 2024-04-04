@@ -1,0 +1,147 @@
+{{!--
+  This template renders a post card within a loop.
+--}}
+
+{{#if virtualized}}
+  <article
+    class="g-post-card {{post_class}}"
+    :class="{'no-image': !post.feature_image}"
+  >
+    <a
+      x-show="post.feature_image"
+      :href="post.url"
+      class="g-post-card__image-link focusable"
+    >
+      <img
+        :data-src="post.feature_image_large"
+        :data-srcset="
+          `${post.feature_image_medium} 500w,
+           ${post.feature_image_large} 1000w,
+           ${post.feature_image_extra_large} 1400w`
+        "
+        sizes="
+          (min-width: 64rem) 70vw,
+          (min-width: 45rem) calc(50vw - 1.25rem),
+          calc(100vw - 1.25rem)
+        "
+        :alt="post.feature_image_alt"
+        class="g-post-card__image lazy"
+      >
+    </a>
+    <div
+      class="g-post-card__content"
+      :class="{'no-image': !post.feature_image}"
+    >
+      <div class="g-post-card__content__wrapper">
+        <div
+          x-show="post.featured"
+          class="g-post-card__badge"
+          :class="{'no-image': !post.feature_image}"
+        >
+          <span
+            aria-hidden="true"
+            style="background-image: url({{asset "images/award-left.png"}});"
+          ></span>
+          <span>
+            {{t "Featured story"}}
+          </span>
+          <span
+            aria-hidden="true"
+            style="background-image: url({{asset "images/award-right.png"}});"
+          ></span>
+        </div>
+        <h2 class="g-post-card__title">
+          <a
+            :href="post.url"
+            x-text="post.title"
+            :aria-hidden="post.feature_image ? true : false"
+            :tabindex="post.feature_image ? -1 : 0"
+          >
+          </a>
+        </h2>
+        <p
+          x-show="post.custom_excerpt"
+          x-text="post.custom_excerpt"
+          class="g-post-card__excerpt"
+        ></p>
+        <a
+          x-show="post.tags.length > 0"
+          :href="post.tags.length > 0 ? post.tags[0].url : ''"
+          x-text="post.tags.length > 0 ? post.tags[0].name : ''"
+          class="g-post-card__tag"
+        ></a>
+      </div>
+    </div>
+  </article>
+{{else}}
+  <article
+    class="g-post-card {{^if feature_image}}no-image{{/if}} {{#if related}}in-related-post{{/if}}"
+  >
+    {{#if feature_image}}
+      <a
+        href="{{url}}"
+        class="g-post-card__image-link focusable"
+      >
+        <span class="sr-only">{{title}}</span>
+        <img
+          data-src="{{img_url feature_image size='l'}}"
+          data-srcset="
+            {{img_url feature_image size='m'}} 500w,
+            {{img_url feature_image size='l'}} 1000w,
+            {{img_url feature_image size='xl'}} 1400w
+          "
+          sizes="
+            (min-width: 90rem) 60vw,
+            (min-width: 45rem) calc(50vw - 1.25rem),
+            calc(100vw - 1.25rem)
+          "
+          alt="{{feature_image_alt}}"
+          class="g-post-card__image lazy {{#if related}}in-related-post{{/if}}"
+        >
+      </a>
+    {{/if}}
+    <div
+      class="g-post-card__content {{^if feature_image}}no-image{{/if}} {{#if related}}in-related-post{{/if}}"
+    >
+      <div class="g-post-card__content__wrapper">
+        {{#if featured}}
+          <div
+            class="g-post-card__badge {{^if feature_image}}no-image{{/if}}"
+          >
+            <span
+              aria-hidden="true"
+              style="background-image: url({{asset "images/award-left.png"}});"
+            ></span>
+            <span>
+              {{t "Featured story"}}
+            </span>
+            <span
+              aria-hidden="true"
+              style="background-image: url({{asset "images/award-right.png"}});"
+            ></span>
+          </div>
+        {{/if}}
+        <h2
+          class="g-post-card__title"
+          aria-hidden="{{#if feature_image}}true{{else}}false{{/if}}"
+        >
+          <a
+            href="{{url}}"
+            aria-hidden="{{#if feature_image}}true{{else}}false{{/if}}"
+            tabindex="{{#if feature_image}}-1{{else}}0{{/if}}"
+          >
+            {{title}}
+          </a>
+        </h2>
+        {{#if custom_excerpt}}
+          <p class="g-post-card__excerpt">{{custom_excerpt}}</p>
+        {{/if}}
+        {{#if primary_tag}}
+          <a href="{{primary_tag.url}}" class="g-post-card__tag">
+            {{primary_tag.name}}
+          </a>
+        {{/if}}
+      </div>
+    </div>
+  </article>
+{{/if}}

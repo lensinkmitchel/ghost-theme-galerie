@@ -1,0 +1,189 @@
+{{!--
+  This template renders all the posts of a given page (the loop).
+--}}
+
+<section
+  x-data="loop()"
+  class="g-post-grid__container {{#if @site.members_enabled}}{{#if @member}}no-newsletter{{/if}}{{/if}}"
+  :class="{'no-more-posts': !hasMorePosts && postsAdded.length > 0}"
+  @load-more-listener-ready.window="loadPreviousPages()"
+>
+  {{#if @custom.post_tiles_layout}}
+    {{#match @custom.post_tiles_layout "Mosaic"}}
+      <div
+        class="g-posts-grid {{#if layout}}{{layout}}{{else}}default{{/if}} js-main-content"
+      >
+    {{/match}}
+    {{#match @custom.post_tiles_layout "Two columns"}}
+      <div
+        class="g-posts-grid {{#if layout}}{{layout}}{{else}}two-columns-layout{{/if}} js-main-content"
+      >
+    {{/match}}
+    {{#match @custom.post_tiles_layout "Grid"}}
+      <div
+        class="g-posts-grid {{#if layout}}{{layout}}{{else}}grid-layout{{/if}} js-main-content"
+      >
+    {{/match}}
+    {{#match @custom.post_tiles_layout "Insta"}}
+      <div
+        class="g-posts-grid {{#if layout}}{{layout}}{{else}}insta-layout{{/if}} js-main-content"
+      >
+    {{/match}}
+  {{else}}
+    <div
+      class="g-posts-grid {{#if layout}}{{layout}}{{else}}default{{/if}} js-main-content"
+    >
+  {{/if}}
+    {{#foreach posts}}
+      <div class="g-posts-grid__item">
+        {{> post-card}}
+      </div>
+    {{/foreach}}
+    <template x-for="post in postsAdded" :key="post.id">
+      <div class="g-posts-grid__item">
+        {{> post-card virtualized="true"}}
+      </div>
+    </template>
+  </div>
+  {{pagination}}
+</section>
+
+<script>
+  function loop() {
+    return {
+      loopEnabled: false,
+      postsAdded: [],
+      page: 2,
+      pageFromUrl: 1,
+      hasMorePosts: true,
+      loading: false,
+      init() {
+        this.checkLoopFeature()
+      },
+      checkLoopFeature() {
+        if (typeof ghostApiKey === 'undefined') {
+          console.error(
+            'Please make sure to setup the Content API custom integration in the Ghost Admin first, see the documentation for more information.'
+          )
+        } else {
+          this.loopEnabled = true
+        }
+      },
+      loadMorePosts(shouldUpdateURL = true) {
+        if (!this.loopEnabled) {
+          return
+        }
+
+        this.loading = true
+        this.$dispatch(
+          'load-more-performed',
+          {
+            filter:
+              typeof window.currentLoopFilter !== 'undefined' ? window.currentLoopFilter : '',
+            page: this.page,
+            callback: this.handleResults.bind(this)
+          }
+        )
+
+        if (shouldUpdateURL) {
+          this.updateCurrentURL()
+        }
+
+        this.page += 1
+      },
+      handleResults(response) {
+        this.loading = false
+
+        if (response.error) {
+          console.error(response.error)
+          return
+        }
+
+        if (!response.meta.pagination.next) {
+          this.hasMorePosts = false
+        }
+
+        if (response.length > 0) {
+          const mappedPosts = response.map((post) => {
+            const item = post
+
+            if (
+              item.feature_image &&
+              item.feature_image.indexOf('/content/images/') > -1
+            ) {
+              item.feature_image_medium = item.feature_image.replace(
+                '/content/images/',
+                '/content/images/size/w500/'
+              )
+              item.feature_image_large = item.feature_image.replace(
+                '/content/images/',
+                '/content/images/size/w1000/'
+              )
+              item.feature_image_extra_large = item.feature_image.replace(
+                '/content/images/',
+                '/content/images/size/w2000/'
+              )
+            } else if (item.feature_image) {
+              item.feature_image_medium = item.feature_image
+              item.feature_image_large = item.feature_image
+              item.feature_image_extra_large = item.feature_image
+            }
+
+            return item
+          })
+
+          this.postsAdded = this.postsAdded.concat(mappedPosts)
+          this.$nextTick(() => {
+            this.$dispatch('ajax-content-loaded')
+          })
+        }
+
+        if (this.pageFromUrl > 1) {
+          this.pageFromUrl -= 1
+          this.loadMorePosts(false)
+        }
+      },
+      updateCurrentURL() {
+        const url = new URL(window.location.href)
+
+        if (url.searchParams.has('page')) {
+          url.searchParams.set('page', this.page)
+        } else {
+          url.searchParams.append('page', this.page)
+        }
+
+        history.pushState({}, null, url)
+      },
+      loadPreviousPages() {
+        if (!this.loopEnabled) {
+          return
+        }
+
+        const pageParam = this.getUrlParameter('page')
+
+        if (pageParam) {
+          const page = Number(pageParam)
+
+          if (page > 1) {
+            this.pageFromUrl = page - 1
+            this.loadMorePosts(false)
+          }
+        }
+      },
+      getUrlParameter(param) {
+        const query = window.location.search.substring(1)
+        const params = query.split('&')
+
+        for (let x = 0; x < params.length; x++) {
+          const pair = params[x].split('=')
+
+          if (pair[0] === param) {
+            return decodeURIComponent(pair[1])
+          }
+        }
+
+        return false
+      }
+    }
+  }
+</script>

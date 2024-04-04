@@ -1,0 +1,248 @@
+{{!--
+  This template renders the collapsible search.
+--}}
+
+<div
+  x-data="search()"
+  x-effect="performSearch()"
+  class="g-drawer in-search"
+  :class="{
+    'open': isSearchOpen(),
+    'visible': isSearchAccessible(),
+    'invisible': !isSearchAccessible() 
+  }"
+  @open-search.window="openSearch()"
+  @keyup.escape.window="closeSearch()"
+  @keydown.window="moveFocus()"
+>
+  <div class="g-drawer__backdrop" @click="closeSearch()"></div>
+  <div class="g-drawer__content">
+    <div class="g-drawer__header js-search-item-animate">
+      {{> logo logo_class="in-drawer"}}
+      <button
+        class="g-header-button no-appearance focusable content-centered"
+        aria-label="{{t "Close search"}}"
+        x-ref="close_search"
+        @click="closeSearch()"
+      >
+        <span
+          class="g-header-button__icon icon-cancel"
+          aria-hidden="true"
+        ></span>
+        <span class="g-header-button__label">{{t "Close"}}</span>
+      </button>
+    </div>
+    <div class="g-drawer__body">
+      <div class="g-search-form js-search-item-animate">
+        <label for="search-input" class="sr-only">
+          {{t "Start typing"}}
+        </label>
+        <input
+          id="search-input"
+          x-ref="search_input"
+          x-model.debounce="query"
+          type="search"
+          placeholder="{{t "Start typing"}}"
+          autocomplete="off"
+          spellcheck="false"
+          class="g-search-form__input no-appearance"
+        >
+      </div>
+      <div x-show="results.length === 0" x-transition.duration.500ms>
+        <div class="g-search-container js-search-item-animate">
+          <span class="g-search-section-title">{{t "Recent content"}}</span>
+          {{#get
+            "posts"
+            limit="4"
+            include="tags"
+            order="published_at desc"
+            as |recent_articles|
+          }}
+            {{#if recent_articles}}
+              <div class="g-search-recent-container">
+                {{#foreach recent_articles}}
+                  <article class="g-search-recent">
+                    <a
+                      href="{{url}}"
+                      class="g-search-recent__image"
+                      aria-hidden="true"
+                      tabindex="-1"
+                    >
+                      <div class="g-search-recent__image__fallback">
+                        {{> circles-shape}}
+                      </div>
+                      {{#if feature_image}}
+                        <img
+                          data-src="{{img_url feature_image size="xs"}}"
+                          alt="{{feature_image_alt}}"
+                          class="lazy"
+                          width="75"
+                          height="75"
+                        >
+                      {{/if}}
+                    </a>
+                    <div class="g-search-recent__main">
+                      <a
+                        href="{{primary_tag.url}}"
+                        class="g-search-recent__tag"
+                      >
+                        {{primary_tag.name}}
+                      </a>
+                      <h4 class="g-search-recent__title">
+                        <a href="{{url}}">{{title}}</a>
+                      </h4>
+                    </div>
+                  </article>
+                {{/foreach}}
+              </div>
+            {{/if}}
+          {{/get}}
+        </div>
+        <div class="g-search-container js-search-item-animate">
+          <span class="g-search-section-title">{{t "Popular topics"}}</span>
+          {{#get
+            "tags"
+            limit="10"
+            include="count.posts"
+            order="count.posts desc"
+            as |tags|
+          }}
+            {{#if tags}}
+              <ul class="g-search-tags-list">
+                {{#foreach tags}}
+                  <li>
+                    <a href="{{url}}" class="g-search-tag">{{name}}</a>
+                  </li>
+                {{/foreach}}
+              </ul>
+            {{/if}}
+          {{/get}}
+        </div>
+      </div>
+      <div
+        x-show="results.length > 0"
+        x-transition:enter.duration.500ms.delay.500ms
+        x-transition:leave.duration.0ms
+      >
+        <div class="g-search-container js-search-item-animate">
+          <div class="g-search-results-container">
+            <template x-for="result in results" :key="result.id">
+              <article class="g-search-result">
+                <a
+                  :href="result.url"
+                  class="g-search-result__image"
+                  aria-hidden="true"
+                  tabindex="-1"
+                >
+                  <div class="g-search-result__image__fallback">
+                    {{> circles-shape}}
+                  </div>
+                  <img
+                    x-show="result.feature_image"
+                    :src="result.feature_image"
+                    :alt="result.feature_image_alt"
+                    width="350"
+                    height="200"
+                  >
+                </a>
+                <h4 class="g-search-result__title">
+                  <a :href="result.url" x-text="result.title"></a>
+                </h4>
+              </article>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function search() {
+    return {
+      showSearch: false,
+      accessible: false,
+      firstFocusableElement: null,
+      lastFocusableElement: null,
+      bodyElement: null,
+      query: '',
+      searchEnabled: false,
+      results: [],
+      init() {
+        const focusableElements = this.$el.querySelectorAll('a[href], input, button')
+        this.bodyElement = document.querySelector('body')
+        this.firstFocusableElement = focusableElements[0]
+        this.lastFocusableElement = focusableElements[focusableElements.length - 1]
+        this.checkSearchFeature()
+      },
+      openSearch() {
+        const self = this
+        self.$dispatch('drawer-opened', { drawer: 'search' })
+        self.showSearch = true
+        self.accessible = true
+        self.bodyElement.classList.add('no-scroll-y')
+
+        setTimeout(() => {
+          self.$refs.search_input.focus()
+        }, 200)
+      },
+      closeSearch() {
+        this.showSearch = false
+        this.bodyElement.classList.remove('no-scroll-y')
+        setTimeout(() => {
+          this.accessible = false
+        }, 400)
+      },
+      checkSearchFeature() {
+        if (typeof ghostApiKey === 'undefined') {
+          console.error(
+            'Please make sure to setup the Content API custom integration in the Ghost Admin first, see the documentation for more information.'
+          )
+        } else {
+          this.searchEnabled = true
+        }
+      },
+      performSearch() {
+        if (this.showSearch && this.searchEnabled) {
+          if (this.query.length > 0) {
+            this.$dispatch(
+              'search-performed',
+              {
+                query: this.query,
+                callback: this.handleResults.bind(this)
+              }
+            )
+          } else {
+            this.results = []
+          }
+        }
+      },
+      handleResults(results) {
+        this.results = results
+      },
+      isSearchOpen() {
+        return this.showSearch === true
+      },
+      isSearchAccessible() {
+        return this.accessible === true
+      },
+      moveFocus() {
+        if (
+          this.$event.target === this.lastFocusableElement &&
+          this.$event.key === 'Tab' &&
+          !this.$event.shiftKey
+        ) {
+          this.$event.preventDefault()
+          this.firstFocusableElement.focus()
+        } else if (
+          this.$event.target === this.firstFocusableElement &&
+          this.$event.key === 'Tab' &&
+          this.$event.shiftKey
+        ) {
+          this.$event.preventDefault()
+          this.lastFocusableElement.focus()
+        }
+      }
+    }
+  }
+</script>

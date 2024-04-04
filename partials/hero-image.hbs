@@ -1,0 +1,20 @@
+{{!--
+  This template renders the hero background at the top of the page.
+--}}
+
+<div class="g-hero-image">
+  <img
+    data-src="{{img_url hero_image size='l'}}"
+    data-srcset="
+      {{img_url hero_image size='m'}} 500w,
+      {{img_url hero_image size='l'}} 1000w,
+      {{img_url hero_image size='xl'}} 2000w
+    "
+    sizes="100vw"
+    alt="{{alt_image}}"
+    width="1440"
+    height="1024"
+    class="g-hero-image__image lazy"
+  >
+  <div class="g-hero-image__gradient"></div>
+</div>

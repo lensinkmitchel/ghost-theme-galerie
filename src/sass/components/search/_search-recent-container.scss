@@ -1,0 +1,16 @@
+.g-search-recent-container {
+  @include respond-to('medium') {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  article:last-of-type {
+    margin-bottom: 0;
+  }
+
+  article:nth-last-child(2) {
+    @include respond-to('medium') {
+      margin-bottom: 0;
+    }
+  }
+}

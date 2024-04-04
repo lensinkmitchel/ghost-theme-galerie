@@ -1,0 +1,26 @@
+.g-404-content {
+  position: relative;
+  color: var(--color-on-dark);
+  text-align: center;
+  max-width: 33.75rem;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+.g-404-content__title {
+  line-height: 1.2;
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin: 0 0 1rem;
+
+  @include respond-to('medium') {
+    line-height: 1.1;
+    font-size: 4.5rem;
+  }
+}
+
+.g-404-content__subtitle {
+  line-height: 1.5;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-m);
+}

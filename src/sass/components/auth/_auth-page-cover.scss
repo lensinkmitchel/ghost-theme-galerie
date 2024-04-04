@@ -1,0 +1,29 @@
+.g-auth-page-cover {
+  position: relative;
+  height: 17.5rem;
+  overflow: hidden;
+  background-color: var(--light-background);
+
+  @include respond-to('medium') {
+    height: 22.5rem;
+  }
+
+  @include respond-to('large') {
+    flex-basis: 50%;
+    height: auto;
+  }
+
+  &.no-image {
+    background: linear-gradient(135deg,  var(--gradient-first-color) 0%,var(--gradient-second-color) 100%);
+  }
+}
+
+.g-auth-page-cover__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+}

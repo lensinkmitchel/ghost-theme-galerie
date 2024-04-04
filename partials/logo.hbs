@@ -1,0 +1,28 @@
+{{!--
+  This template renders the blog title or logo when is available.
+--}}
+
+<a
+  href="{{@site.url}}"
+  class="g-logo {{logo_class}}"
+  title="{{@site.title}}"
+>
+  {{#if @site.logo}}
+    <img
+      data-src="{{@site.logo}}"
+      alt=""
+      width="80"
+      height="30"
+      class="{{#if @custom.dark_mode_logo}}g-logo__image-light{{/if}} lazy"
+    >
+    {{#if @custom.dark_mode_logo}}
+      <img
+        data-src="{{@custom.dark_mode_logo}}"
+        alt=""
+        class="g-logo__image-dark lazy"
+      >
+    {{/if}}
+  {{else}}
+    <span>{{@site.title}}</span>
+  {{/if}}
+</a>

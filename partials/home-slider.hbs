@@ -1,0 +1,97 @@
+{{!--
+  This template renders the home slider at the top of the page.
+--}}
+
+<section class="g-home-slider">
+  <div class="swiper js-slider">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        {{#if @custom.use_custom_cta}}
+          {{> home-slide
+            main_slide="true"
+            slide_image=@site.cover_image
+            slide_title=@site.title
+            slide_description=@site.description
+            slide_cta=@custom.use_custom_cta
+            slide_cta_link=@custom.custom_cta_url
+            slide_cta_link_path=""
+            slide_cta_label=@custom.custom_cta_text
+          }}
+        {{else}}
+          {{#if @custom.portal_for_membership_experience}}
+            {{> home-slide
+              main_slide="true"
+              slide_image=@site.cover_image
+              slide_title=@site.title
+              slide_description=@site.description
+              slide_cta=@site.members_enabled
+              slide_cta_link=@site.url
+              slide_cta_link_path="#/portal/signup"
+              slide_cta_label=(t "Subscribe Now")
+            }}
+          {{else}}
+            {{> home-slide
+              main_slide="true"
+              slide_image=@site.cover_image
+              slide_title=@site.title
+              slide_description=@site.description
+              slide_cta=@site.members_enabled
+              slide_cta_link=@site.url
+              slide_cta_link_path="/newsletter"
+              slide_cta_label=(t "Subscribe Now")
+            }}
+          {{/if}}
+        {{/if}}
+      </div>
+      {{#get
+        "posts"
+        filter="featured:true"
+        limit="5" as |featured|
+      }}
+        {{#foreach featured}}
+          <div class="swiper-slide">
+            {{> home-slide
+              slide_image=feature_image
+              slide_title=title
+              slide_description=custom_excerpt
+              slide_cta="true"
+              slide_cta_link=url
+              slide_cta_label=(t "Read More")
+            }}
+          </div>
+        {{/foreach}}
+      {{/get}}
+    </div>
+    <div class="swiper-pagination js-slider-control"></div>
+    <div class="g-home-silder__nav js-slider-control">
+      <div>
+        <button
+          class="swiper-button-next no-appearance"
+          aria-label="{{t "Next featured story"}}"
+        >
+          <span class="icon-arrow-right" aria-hidden="true"></span>
+        </button>
+        <button
+          class="swiper-button-prev no-appearance"
+          aria-label="{{t "Previous featured story"}}"
+        >
+          <span class="icon-arrow-left" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="g-home-slide__bottom">
+    <button
+      class="g-home-scroll js-slider-control no-appearance"
+      aria-label="{{t "Scroll to content"}}"
+      @click="scrollToContent()"
+    >
+      <span></span>
+    </button>
+  </div>
+</section>
+
+{{!-- This block loads specific scripts for the home page --}}
+{{#contentFor "scripts"}}
+  <script defer src="{{asset "js/home.js"}}"></script>
+{{/contentFor}}

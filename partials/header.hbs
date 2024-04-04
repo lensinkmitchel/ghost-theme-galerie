@@ -1,0 +1,33 @@
+{{!--
+  This template renders the header bar at the top.
+--}}
+
+<header class="g-header js-header" x-data>
+  <button
+    class="g-header-button no-appearance focusable content-centered"
+    aria-label="{{t "Open menu"}}"
+    @click="$dispatch('open-menu')"
+  >
+    <span
+      class="g-header-button__icon icon-menu-scale"
+      aria-hidden="true"
+    ></span>
+    <span class="g-header-button__label">{{t "Menu"}}</span>
+  </button>
+  {{> logo logo_class="in-header"}}
+  <button
+    class="g-header-button no-appearance focusable content-centered"
+    aria-label="{{t "Open search"}}"
+    {{#if @custom.enable_native_search}}
+      data-ghost-search
+    {{else}}
+      @click="$dispatch('open-search')"
+    {{/if}}
+  >
+    <span
+      class="g-header-button__icon icon-search"
+      aria-hidden="true"
+    ></span>
+    <span class="g-header-button__label">{{t "Search"}}</span>
+  </button>
+</header>

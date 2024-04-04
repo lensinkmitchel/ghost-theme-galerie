@@ -1,0 +1,69 @@
+.g-home-scroll {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  width: 16px;
+  height: 76px;
+  cursor: pointer;
+
+  &.with-image {
+    &:after {
+      background-color: var(--color-on-dark);
+    }
+
+    span {
+      border-color: var(--color-on-dark);
+
+      &:after {
+        background-color: var(--color-on-dark);
+      }
+    }
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 48px;
+    opacity: 0.2;
+    background-color: var(--foreground);
+    @include transform(translateX(-50%));
+  }
+
+  span {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 20px;
+    border-radius: 15px;
+    border: 2px solid var(--foreground);
+    opacity: 0.8;
+    overflow: hidden;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 9px;
+      width: 2px;
+      height: 8px;
+      margin-left: -1px;
+      background-color: var(--foreground);
+      @include animation('scroll 1s ease infinite');
+      @include keyframes(scroll) {
+        0% {
+          @include transform(translateY(-100%));
+        }
+        50% {
+          @include transform(translateY(0));
+        }
+        100% {
+          height: 0;
+        }
+      }
+    }
+  }
+}

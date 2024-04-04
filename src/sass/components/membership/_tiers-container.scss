@@ -1,0 +1,27 @@
+.g-tiers-container {
+  padding: var(--spacing-l) 0 var(--spacing-m);
+
+  @include respond-to('medium') {
+    padding: 6.25rem 0;
+  }
+
+  @include respond-to('extra-large') {
+    padding-bottom: 5rem;
+  }
+
+  &.no-image {
+    padding-top: 0;
+
+    @include respond-to('medium') {
+      padding-top: 0;
+    }
+  }
+}
+
+.g-tiers-container__content {
+  @include respond-to('medium') {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 calc(var(--spacing-s) * -1);
+  }
+}

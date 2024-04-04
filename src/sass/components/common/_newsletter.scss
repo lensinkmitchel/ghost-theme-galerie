@@ -1,0 +1,100 @@
+.g-newsletter {
+  position: relative;
+  overflow: hidden;
+}
+
+.g-newsletter__shape {
+  position: absolute;
+  width: 31.25rem;
+  height: 31.25rem;
+  left: 50%;
+  bottom: -15.625rem;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  @include transform(translateX(-50%));
+
+  @include respond-to('medium') {
+    width: 45rem;
+    height: 45rem;
+    bottom: -22.5rem;
+  }
+}
+
+.g-newsletter__wrapper {
+  position: relative;
+  padding: var(--spacing-l) var(--spacing-s) 6.25rem;
+  margin: 0 auto;
+  max-width: 52.8125rem;
+  z-index: 1;
+
+  @include respond-to('medium') {
+    padding: var(--spacing-l) var(--spacing-m) 10rem;
+  }
+
+  @include respond-to('large') {
+    padding-left: var(--spacing-l);
+    padding-right: var(--spacing-l);
+  }
+
+  @include respond-to('largest') {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.g-newsletter__icon {
+  display: block;
+  width: 5.9375rem;
+  height: auto;
+  margin-bottom: 0.625rem;
+
+  @include respond-to('medium') {
+    width: 6.875rem;
+  }
+
+  .fill {
+    stroke: var(--foreground);
+  }
+}
+
+.g-newsletter__container {
+  @include respond-to('medium') {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.g-newsletter__callout {
+  max-width: 22.5rem;
+  margin-bottom: var(--spacing-m);
+
+  @include respond-to('medium') {
+    max-width: 45%;
+    margin-bottom: 0;
+  }
+}
+
+.g-newsletter__title {
+  color: var(--foreground);
+  line-height: 1.28;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 0;
+
+  @include respond-to('medium') {
+    line-height: 1.2;
+    font-size: 2.25rem;
+  }
+}
+
+.g-newsletter__text {
+  color: var(--foreground);
+  line-height: 1.5;
+  font-size: 1rem;
+
+  &.spacing {
+    margin-bottom: var(--spacing-s);
+  }
+}

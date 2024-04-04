@@ -1,0 +1,40 @@
+:root {
+  --foreground: hsl(0, 0%, 7%);
+  --background: hsl(0, 0%, 100%);
+  --header-background: rgba(255, 255, 255, 0.5);
+  --gradient-card-background: rgba(255, 255, 255, 0);
+  --light-background: hsl(0, 0%, 91%);
+  --light-secondary-background: hsl(0, 0%, 98%);
+  --dark-background: hsl(0, 0%, 7%);
+  --color-on-dark: hsl(0, 0%, 100%);
+  --accent-color: hsl(0, 0%, 7%);
+  --border: hsl(0, 0%, 91%);
+  --border-on-dark: hsl(0, 0%, 16%);
+  --light-text: hsl(0, 0%, 36%);
+  --gradient-first-color: hsl(299, 100%, 50%);
+  --gradient-second-color: hsl(181, 100%, 44%);
+  --focus: hsl(203, 82%, 76%);
+  --success: hsl(173, 58%, 39%);
+  --error: hsl(355, 78%, 56%);
+  --highlighted: hsl(60, 100%, 50%);
+  --active-status: hsl(146, 32%, 38%);
+  --trialing-status: hsl(217, 100%, 51%);
+  --issue-status: hsl(351, 72%, 45%);
+  --canceled-status: hsl(208, 10%, 34%);
+  --display-light-logo: inline-block;
+  --display-dark-logo: none;
+}
+
+[theme-mode="dark"] {
+  --foreground: hsl(240, 25%, 98%);
+  --background: hsl(245, 17%, 12%);
+  --header-background: rgba(27, 26, 37, 0.5);
+  --gradient-card-background: rgba(26, 25, 36, 0);
+  --light-background: hsl(225, 13%, 18%);
+  --light-secondary-background: hsl(225, 13%, 8%);
+  --accent-color: hsl(32, 100%, 49%);
+  --border: hsl(228, 13%, 23%);
+  --light-text: hsl(240, 25%, 78%);
+  --display-light-logo: none;
+  --display-dark-logo: inline-block;
+}

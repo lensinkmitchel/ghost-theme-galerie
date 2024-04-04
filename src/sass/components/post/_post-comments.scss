@@ -1,0 +1,23 @@
+.g-post-comments {
+  margin-bottom: var(--spacing-l);
+
+  @include respond-to('medium') {
+    margin-bottom: 6.25rem;
+  }
+}
+
+.g-post-comments__wrapper {
+  color: var(--foreground);
+  padding: 0 var(--spacing-s);
+  max-width: var(--max-width-post-container);
+  margin: 0 auto;
+
+  @include respond-to('medium') {
+    padding: 0;
+  }
+
+  iframe {
+    width: 100%;
+    margin: 0 auto;
+  }
+}

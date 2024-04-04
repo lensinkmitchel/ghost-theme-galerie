@@ -1,0 +1,76 @@
+.hide {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.vivisle {
+  visibility: visible;
+}
+
+.transparent {
+  opacity: 0;
+}
+
+.sr-only {
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.content-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.horizontal-centered-items {
+  display: flex;
+  align-items: center;
+}
+
+.full-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.focusable {
+  &:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px var(--focus);
+  }
+}
+
+.no-appearance {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  -o-appearance: none !important;
+  -ms-appearance: none !important;
+  appearance: none !important;
+  outline: 0;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+.no-scroll-y {
+  overflow-y: hidden;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.pointer {
+  cursor: pointer;
+}

@@ -1,0 +1,175 @@
+{{!--
+  This template renders the membership options.
+--}}
+
+<main role="main" x-data="membership()">
+  {{!-- Everything inside the #page tags pulls data from the page --}}
+  {{#page}}
+    {{!-- Main Hero component --}}
+    <section
+      class="g-generic-hero {{#if feature_image}}with-image{{/if}}"
+    >
+      {{#if feature_image}}
+        {{> hero-image
+          hero_image=feature_image
+          alt_image=feature_image_alt
+        }}
+      {{/if}}
+      <div class="g-generic-hero__container">
+        <div class="g-wrapper">
+          <div
+            class="g-generic-hero__content {{#if feature_image}}with-image{{/if}}"
+          >
+            <h1 class="g-generic-hero__title">{{title}}</h1>
+            {{#if custom_excerpt}}
+              <p class="g-generic-hero__description">
+                {{custom_excerpt}}
+              </p>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="g-tiers-container {{^if feature_image}}no-image{{/if}}"
+    >
+      <div class="g-wrapper">
+        <div class="g-plan-switcher">
+          <span class="g-plan-switcher__label">{{t "Choose your plan"}}</span>
+          <div class="g-plan-switcher__container">
+            <div
+              class="g-plan-switcher__indicator"
+              :class="{ 'yearly': isYearlyPlan() }"
+            ></div>
+            <div class="g-plan-switcher__wrapper">
+              <button
+                class="g-plan-switcher__button"
+                :class="{ 'active': !isYearlyPlan() }"
+                @click="choosePlan('monthly')"
+              >
+                {{t "Monthly"}}
+              </button>
+              <button
+                class="g-plan-switcher__button"
+                :class="{ 'active': isYearlyPlan() }"
+                @click="choosePlan('yearly')"
+              >
+                {{t "Yearly"}}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="g-tiers-container__content">
+          {{! Get all tiers with monthly price, yearly price, and benefits data }}
+          {{#get
+            "tiers"
+            include="monthly_price,yearly_price,benefits,currency"
+            limit="all"
+            as |tiers|
+          }}
+            {{! Loop through our tiers collection }}
+            {{#foreach tiers}}
+              <div
+                class="g-tier-card {{id}} {{slug}}" x-bind:data-plan="activePlan"
+              >
+                <div class="g-tier-card__main">
+                  <h2 class="g-tier-card__plan">{{name}}</h2>
+                  {{#match type "=" "paid"}}
+                    {{#if monthly_price}}
+                      <span class="g-tier-card__price paid" data-monthly>
+                        <sup>{{price currency=currency}}</sup>{{price monthly_price}}<span class="g-tier-card__price__plan">/{{t "month"}}</span>
+                      </span>
+                    {{/if}}
+                    {{#if yearly_price}}
+                      <span class="g-tier-card__price paid" data-yearly>
+                        <sup>{{price currency=currency}}</sup>{{price yearly_price}}<span class="g-tier-card__price__plan">/{{t "year"}}</span>
+                      </span>
+                    {{/if}}
+                  {{else}}
+                    <span class="g-tier-card__price free">
+                      <sup></sup>{{price 0}}
+                    </span>
+                  {{/match}}
+                  {{#if description}}
+                    <p class="g-tier-card__description">{{description}}</p>
+                  {{/if}}
+                  {{#if benefits}}
+                    <ul class="g-tier-card__list">
+                      {{#foreach benefits as |benefit|}}
+                        <li>{{benefit}}</li>
+                      {{/foreach}}
+                    </ul>
+                  {{/if}}
+                </div>
+                <div class="g-tier-card__bottom">
+                  <div>
+                    {{#match type "=" "paid"}}
+                      {{#if monthly_price}}
+                        <a
+                          href="javascript:"
+                          data-portal="signup/{{id}}/monthly"
+                          data-monthly
+                          class="g-button block focusable"
+                        >
+                          {{t "Subscribe Now"}}
+                        </a>
+                      {{/if}}
+                      {{#if yearly_price}}
+                        <a
+                          href="javascript:"
+                          data-portal="signup/{{id}}/yearly"
+                          data-yearly
+                          class="g-button block focusable"
+                        >
+                          {{t "Subscribe Now"}}
+                        </a>
+                      {{/if}}
+                    {{else}}
+                      <a
+                        href="{{#if @custom.portal_for_membership_experience}}#/portal/signup{{else}}{{@site.url}}/signup{{/if}}"
+                        class="g-button block focusable"
+                      >
+                        {{t "Subscribe Now"}}
+                      </a>
+                    {{/match}}
+                  </div>
+                </div>
+              </div>
+            {{/foreach}}
+          {{/get}}
+        </div>
+      </div>
+    </section>
+  {{/page}}
+  {{!-- Newsletter form --}}
+  {{> newsletter-form}}
+</main>
+
+<script>
+  function membership() {
+    return {
+      activePlan: 'monthly',
+      init() {
+        const currencyElement = this.$el.querySelector('.g-tier-card__price.paid sup')
+
+        if (currencyElement) {
+          const currency = currencyElement.innerText
+          const freeTierCurrencyElement = this.$el.querySelector('.g-tier-card__price.free sup')
+
+          if (freeTierCurrencyElement) {
+            freeTierCurrencyElement.innerText = currency
+          }
+        }
+      },
+      choosePlan(plan) {
+        if (this.activePlan === plan) {
+          return
+        }
+        this.activePlan = plan
+      },
+      isYearlyPlan() {
+        return this.activePlan === 'yearly'
+      }
+    }
+  }
+</script>

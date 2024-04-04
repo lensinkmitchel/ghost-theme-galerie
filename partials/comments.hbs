@@ -1,0 +1,22 @@
+{{!--
+  This template renders the comments in posts.
+--}}
+
+{{!-- Native comments --}}
+{{#if comments}}
+  <section class="g-post-comments">
+    <div class="g-post-comments__wrapper js-comments">
+      {{comments}}
+    </div>
+  </section>
+{{/if}}
+
+{{!-- Third-party comments --}}
+
+{{!--
+<section class="g-post-comments">
+  <div class="g-post-comments__wrapper js-comments">
+    <!-- Paste here the provided code snippet -->
+  </div>
+</section>
+--}}

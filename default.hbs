@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+
+<head>
+  {{!-- Document Settings --}}
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  {{!-- Base Meta --}}
+  <title>{{meta_title}}</title>
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  {{!-- Preload assets --}}
+  <link rel="preload" href="{{asset "css/app.css"}}" as="style" />
+  <link rel="preload" href="{{asset "js/manifest.js"}}" as="script" />
+  <link rel="preload" href="{{asset "js/vendor.js"}}" as="script" />
+  <link rel="preload" href="{{asset "js/app.js"}}" as="script" />
+
+  {{!-- This #block helper will try to preload page-specific assets --}}
+  {{{block "preload"}}}
+
+  {{!-- Global styles --}}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{{asset "css/app.css"}}"
+    media="screen"
+  />
+
+  {{!-- This #block helper will inject a stylesheet for a specific page --}}
+  {{{block "styles"}}}
+
+  {{!-- This tag outputs SEO meta+structured data and other important settings --}}
+  {{ghost_head}}
+
+  {{!-- This style overrides the accent color to match the one from the Admin --}}
+  <style>
+    :root {
+      --accent-color: var(--ghost-accent-color);
+    }
+  </style>
+  {{#if @custom.dark_mode_accent_color}}
+    <style>
+      [theme-mode="dark"] {
+        --accent-color: {{@custom.dark_mode_accent_color}};
+      }
+    </style>
+  {{/if}}
+
+  {{!-- This option disbales the loading animation when it's enabled --}}
+  {{#if @custom.disable_loading_animation}}
+    <style>
+      :root {
+        --show-loading-animation: 0;
+        --show-slide-up-animation: 0;
+      }
+    </style>
+  {{/if}}
+
+  {{!-- This option always shows the posts title when it's enabled --}}
+  {{#if @custom.always_show_post_title}}
+    <style>
+      :root {
+        --hide-post-card-overlay: 0;
+      }
+    </style>
+  {{/if}}
+
+  {{!-- Font-face --}}
+  <style>
+    /* These font-faces are here to make fonts work if the Ghost instance is installed in a subdirectory */
+
+    /* Atkinson Hyperlegible Regular */
+    @font-face {
+      font-family: 'Atkinson Hyperlegible';
+      font-style: normal;
+      font-weight: normal;
+      font-display: swap;
+      src: local('Atkinson Hyperlegible Regular'), local('AtkinsonHyperlegible-Regular'),
+      url("{{asset 'fonts/atkinson/Atkinson-Hyperlegible-Regular-102.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/atkinson/Atkinson-Hyperlegible-Regular-102.woff'}}") format('woff');
+    }
+
+    /* Atkinson Hyperlegible Italic */
+    @font-face {
+      font-family: 'Atkinson Hyperlegible';
+      font-style: italic;
+      font-weight: normal;
+      font-display: swap;
+      src: local('Atkinson Hyperlegible Italic'), local('AtkinsonHyperlegible-Italic'),
+      url("{{asset 'fonts/atkinson/Atkinson-Hyperlegible-Italic-102.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/atkinson/Atkinson-Hyperlegible-Italic-102.woff'}}") format('woff');
+    }
+
+    /* Atkinson Hyperlegible Bold */
+    @font-face {
+      font-family: 'Atkinson Hyperlegible';
+      font-style: normal;
+      font-weight: bold;
+      font-display: swap;
+      src: local('Atkinson Hyperlegible Bold'), local('AtkinsonHyperlegible-Bold'),
+      url("{{asset 'fonts/atkinson/Atkinson-Hyperlegible-Bold-102.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/atkinson/Atkinson-Hyperlegible-Bold-102.woff'}}") format('woff');
+    }
+
+    /* Atkinson Hyperlegible Bold Italic */
+    @font-face {
+      font-family: 'Atkinson Hyperlegible';
+      font-style: italic;
+      font-weight: bold;
+      font-display: swap;
+      src: local('Atkinson Hyperlegible Bold Italic'), local('AtkinsonHyperlegible-BoldItalic'),
+      url("{{asset 'fonts/atkinson/Atkinson-Hyperlegible-BoldItalic-102.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/atkinson/Atkinson-Hyperlegible-BoldItalic-102.woff'}}") format('woff');
+    }
+
+    /* Galerie Iconfont */
+    @font-face {
+      font-family: 'Galerie';
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+      src: url("{{asset 'fonts/galerie/Galerie.eot'}}");
+      src: url("{{asset 'fonts/galerie/Galerie.eot'}}") format('embedded-opentype'),
+      url("{{asset 'fonts/galerie/Galerie.woff2'}}") format('woff2'),
+      url("{{asset 'fonts/galerie/Galerie.woff'}}") format('woff'),
+      url("{{asset 'fonts/galerie/Galerie.ttf'}}") format('truetype'),
+      url("{{asset 'fonts/galerie/Galerie.svg'}}") format('svg');
+    }
+  </style>
+
+  {{!-- This variable is used to make the Ghost Content API form work --}}
+  <script>
+    const ghostHost = '{{@site.url}}';
+  </script>
+
+  {{!-- Sets the Content API Key from the theme settings --}}
+  {{#if @custom.content_api_key}}
+    <script>
+      const ghostApiKey = "{{@custom.content_api_key}}";
+    </script>
+  {{/if}}
+
+  {{!-- This variable is used to prevent making unecessary requests when native search is enabled --}}
+  {{#if @custom.enable_native_search}}
+    <script>
+      const nativeSearchEnabled = true;
+    </script>
+  {{/if}}
+
+  {{!-- Disables the featured slider's autoplay when it's enabled --}}
+  {{#if @custom.disable_slider_autoplay}}
+    <script>
+      const disableFeaturedSliderAutoplay = true;
+    </script>
+  {{/if}}
+
+  {{!-- Disables the lightbox view from the theme settings when it's enabled --}}
+  {{#if @custom.disable_images_lightbox}}
+    <script>
+      const disableImagesGallery = true;
+    </script>
+  {{/if}}
+
+  {{!-- This script sets the correct theme mode (light or dark) --}}
+  <script>
+    if (typeof Storage !== 'undefined') {
+      const savedThemeMode = localStorage.getItem('galerie-theme-mode');
+      const html = document.querySelector('html');
+
+      if (savedThemeMode && savedThemeMode !== 'system') {
+        html.setAttribute('theme-mode', savedThemeMode);
+      } else {
+        const isSystemDark = window.matchMedia
+          && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const themeMode = isSystemDark ? 'dark' : 'light';
+
+        html.setAttribute('theme-mode', themeMode);
+      }
+    }
+  </script>
+</head>
+
+<body class="{{body_class}}">
+  {{!-- The header --}}
+  {{> header}}
+
+  {{!-- The menu --}}
+  {{> menu}}
+
+  {{!-- The search --}}
+  {{^if @custom.enable_native_search}}
+    {{> search}}
+  {{/if}}
+
+  <div
+    class="g-load-transition__container {{^is "home"}}fade-up{{/is}}"
+  >
+    {{!-- All the main content gets inserted here, index.hbs, post.hbs, etc --}}
+    {{{body}}}
+
+    {{!-- The footer --}}
+    {{> footer}}
+  </div>
+
+  <div class="g-load-transition__overlay" aria-hidden="true">
+    {{> logo}}
+  </div>
+
+  {{!-- Common scripts shared between pages --}}
+  <script src="{{asset "js/manifest.js"}}" defer></script>
+  <script src="{{asset "js/vendor.js"}}" defer></script>
+  <script src="{{asset "js/app.js"}}" defer></script>
+
+  {{!-- Ghost outputs important scripts and data with this tag --}}
+  {{ghost_foot}}
+
+  {{!-- The #block helper will pull in data from the #contentFor other template files --}}
+  {{{block "scripts"}}}
+
+  {{!--
+
+  CREDITS:
+
+  Atkinson Hyperlegible Font
+  https://brailleinstitute.org/freefont
+  Copyright © 2020, Braille Institute of America, Inc.
+
+  Iconoir Icons
+  MIT License
+  https://iconoir.com/
+  Copyright (c) 2021 Luca Burgio
+
+  Alpine.js
+  Copyright © 2019-2020 Caleb Porzio and contributors
+
+  Ghost content-api
+  MIT License
+  Copyright (c) 2018-2019 Ghost Foundation
+
+  Fuse.js - Lightweight fuzzy-search (http://fusejs.io)
+  Copyright (c) 2020 Kiro Risk (http://kiro.me)
+  All Rights Reserved. Apache Software License 2.0
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  LazyLoad
+  MIT License
+  Copyright (c) 2015 Andrea Verlicchi
+
+  Headroom.js
+  The MIT License (MIT)
+  Copyright (c) 2013 Nick Williams
+
+  fitvids
+  DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+  Copyright (C) 2015 Ross Zurowski <ross@rosszurowski.com>
+
+  anime.js
+  The MIT License
+  Copyright (c) 2019 Julian Garnier
+
+  Swiper
+  The MIT License (MIT)
+  Copyright (c) 2019 Vladimir Kharlampidi
+
+  vh-check
+  MIT License
+  Copyright (c) 2018 Hiswe
+
+  Tocbot
+  The MIT License (MIT)
+  Copyright (c) 2016 Tim Scanlin
+
+  --}}
+</body>
+
+</html>

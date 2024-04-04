@@ -1,0 +1,59 @@
+#announcement-bar-root {
+  position: absolute;
+  left: var(--border-radius-s);
+  right: var(--border-radius-s);
+  top: 100%;
+  z-index: -2;
+
+  @include respond-to('medium') {
+    left: var(--border-radius-m);
+    right: var(--border-radius-m);
+  }
+}
+
+div.gh-announcement-bar {
+  position: relative;
+  line-height: 1.4;
+  font-size: 0.875rem;
+  padding: 0.75rem 3rem 0.75rem 0.75rem;
+  border-radius: 0 0 var(--border-radius-m) var(--border-radius-m);
+  @include bs(0 1px 5px 0 rgba(0, 0, 0, 0.1));
+  min-height: auto;
+  z-index: auto;
+
+  @include respond-to('medium') {
+    font-size: 1rem;
+  }
+
+  &.accent {
+    background-color: var(--accent-color);
+  }
+
+  &.light {
+    border: 1px solid var(--border);
+    border-top-width: 0;
+  }
+
+  a, button {
+    @include transition(opacity linear 0.2s);
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  button {
+    right: 0.5rem;
+  }
+}
+
+[dir="rtl"] {
+  div.gh-announcement-bar {
+    padding: 0.75rem 0.75rem 0.75rem 3rem;
+
+    button {
+      right: auto;
+      left: 0.5rem;
+    }
+  }
+}

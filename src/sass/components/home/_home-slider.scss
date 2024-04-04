@@ -1,0 +1,130 @@
+.g-home-slider {
+  position: relative;
+  min-height: calc(100vh - var(--vh-offset, 0px));
+  overflow: hidden;
+  background-color: var(--dark-background);
+
+  @include respond-to('medium') {
+    min-height: 100vh;
+  }
+
+  .swiper-pagination {
+    display: flex;
+    padding: 0 24px 14px;
+    pointer-events: none;
+
+    @include respond-to('medium') {
+      display: none !important;
+    }
+
+    &.with-image {
+      .swiper-pagination-bullet {
+        background-color: var(--color-on-dark);
+      }
+    }
+
+    .swiper-pagination-bullet {
+      width: 16px;
+      height: 2px;
+      border-radius: 1px;
+      opacity: 0.4;
+      background-color: var(--foreground);
+      @include transition(opacity linear 200ms);
+
+      &.swiper-pagination-bullet-active {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.g-home-silder__nav {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  pointer-events: none;
+  z-index: 1;
+  @include transform(translateY(-50%));
+
+  @include respond-to('medium') {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 var(--spacing-m) 2.5rem;
+  }
+
+  @include respond-to('large') {
+    padding: 0 var(--spacing-l) 2.5rem;
+  }
+
+  @include respond-to('extra-large') {
+    width: calc(var(--max-width-container) - (var(--spacing-l) * 2));
+    padding: 0 0 2.5rem;
+    margin: 0 auto;
+  }
+
+  @include respond-to('largest') {
+    width: var(--max-width-container);
+  }
+
+  &.with-image {
+    div {
+      .swiper-button-prev,
+      .swiper-button-next {
+        &:before {
+          border: 1px solid var(--color-on-dark);
+        }
+
+        span {
+          color: var(--color-on-dark);
+        }
+      }
+    }
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    pointer-events: all;
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: relative;
+      width: 3.125rem;
+      height: 3.125rem;
+      left: auto;
+      right: auto;
+      top: auto;
+      margin: 0;
+      border-radius: 50%;
+      @include transition(opacity linear 200ms);
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 1px solid var(--foreground);
+        opacity: 0.4;
+      }
+
+      &:after {
+        display: none;
+      }
+
+      span {
+        color: var(--foreground);
+        font-size: 1.625rem;
+      }
+    }
+
+    .swiper-button-next {
+      margin-bottom: 0.625rem;
+    }
+  }
+}

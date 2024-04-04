@@ -1,0 +1,36 @@
+.g-author-social-list {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  color: var(--foreground);
+  list-style-type: none;
+
+  &.in-hero {
+    color: var(--color-on-dark);
+  }
+
+  li {
+    margin: 0 0.75rem;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    a {
+      @include transition(opacity linear 200ms);
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      span {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}

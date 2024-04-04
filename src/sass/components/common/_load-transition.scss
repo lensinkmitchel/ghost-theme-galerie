@@ -1,0 +1,59 @@
+.g-load-transition__container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  opacity: calc((var(--show-loading-animation) + (-1)) * -1);
+
+  @include respond-to('medium') {
+    min-height: 100vh;
+  }
+
+  @include animation('loadFadeTransition 500ms linear 750ms forwards');
+  @include keyframes(loadFadeTransition) {
+    0% {
+      opacity: calc((var(--show-loading-animation) + (-1)) * -1);
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  &.fade-up {
+    @include animation('loadFadeUpTransition 500ms cubic-bezier(0.77,0,0.18,1) 750ms forwards');
+    @include keyframes(loadFadeUpTransition) {
+      0% {
+        opacity: calc((var(--show-loading-animation) + (-1)) * -1);
+        @include transform(translateY(calc(12.5rem * var(--show-slide-up-animation))));
+      }
+      100% {
+        opacity: 1;
+        @include transform(translateY(0));
+      }
+    }
+  }
+}
+
+.g-load-transition__overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  pointer-events: none;
+  background-color: var(--background);
+
+  @include animation('loadTransitionOverlay 750ms cubic-bezier(0.77,0,0.18,1) forwards');
+  @include keyframes(loadTransitionOverlay) {
+    0% {
+      opacity: var(--show-loading-animation);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
