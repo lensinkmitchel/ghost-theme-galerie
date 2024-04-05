@@ -12,5 +12,5 @@ jobs:
       - name: Deploy Ghost Theme
         uses: TryGhost/action-deploy-theme@v1
         with:
-          api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
-          api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+          api-url: ${{ secrets.https://mitchel-lensink.ghost.io }}
+          api-key: ${{ secrets.660f140fc6704d000141b924:3bfaf5afcd40880dde5bd486f54d07a92e230a9b9d758dcde4a5f2c60871e16c }}
